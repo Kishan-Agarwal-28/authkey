@@ -758,6 +758,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
   );
 }
 // Analytics Component
+// Analytics Component
 const Analytics = ({ sites }) => {
   const [timeRange, setTimeRange] = useState("week");
   const [currentStreak, setCurrentStreak] = useState(12);
@@ -781,33 +782,33 @@ const Analytics = ({ sites }) => {
   return (
     <div className="space-y-6">
       {/* Streak Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400 mb-1">Current Streak</p>
+              <p className="text-sm font-medium text-slate-400 mb-1">Current Streak</p>
               <div className="flex items-center gap-2">
-                <NumberTicker value={currentStreak} className="text-2xl" />
+                <NumberTicker value={currentStreak} className="!text-3xl text-white bg-none font-sans" />
                 <Flame className="w-6 h-6 text-orange-400" />
               </div>
             </div>
             <Button
               size="sm"
               onClick={shareStreak}
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm"
             >
-              <Share2 className="w-4 h-4 mr-1" />
+              <Share2 className="w-4 h-4 mr-2" />
               Share
             </Button>
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400 mb-1">Longest Streak</p>
+              <p className="text-sm font-medium text-slate-400 mb-1">Longest Streak</p>
               <div className="flex items-center gap-2">
-                <div className="text-2xl font-bold text-white">
+                <div className="text-3xl font-bold text-white leading-none">
                   {longestStreak}
                 </div>
                 <Trophy className="w-6 h-6 text-yellow-400" />
@@ -816,15 +817,15 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400 mb-1">Challenges Completed</p>
+              <p className="text-sm font-medium text-slate-400 mb-1">Challenges Completed</p>
               <div className="flex items-center gap-2">
-                <div className="text-2xl font-bold text-white">
+                <div className="text-3xl font-bold text-white leading-none">
                   {totalChallengesCompleted}
                 </div>
-                <Award className="w-6 h-6 text-green-400" />
+                <Award className="w-6 h-6 text-emerald-400" />
               </div>
             </div>
           </div>
@@ -839,13 +840,13 @@ const Analytics = ({ sites }) => {
             variant={timeRange === range ? "default" : "outline"}
             size="sm"
             onClick={() => setTimeRange(range)}
-            className={
+            className={`rounded-lg capitalize ${
               timeRange === range
-                ? "bg-gradient-to-r from-blue-500 to-purple-600"
-                : "border-white/20 bg-white/5 hover:bg-white/10"
-            }
+                ? "bg-blue-600 text-white border-transparent"
+                : "border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300"
+            }`}
           >
-            {range.charAt(0).toUpperCase() + range.slice(1)}
+            {range}
           </Button>
         ))}
       </div>
@@ -853,37 +854,42 @@ const Analytics = ({ sites }) => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Unlock Patterns */}
-        <Card className="p-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Activity className="w-5 h-5" />
+            <Activity className="w-5 h-5 text-indigo-400" />
             Unlock Patterns
           </h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={timeRange === "day" ? hourlyUnlockData : weeklyUnlockData}
+                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                 <XAxis
                   dataKey={timeRange === "day" ? "hour" : "day"}
-                  stroke="#9CA3AF"
-                  fontSize={12}
+                  stroke="#94A3B8"
+                  fontSize={11}
+                  axisLine={false}
+                  tickLine={false}
                 />
-                <YAxis stroke="#9CA3AF" fontSize={12} />
+                <YAxis stroke="#94A3B8" fontSize={11} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #374151",
-                    borderRadius: "8px",
-                    color: "#F3F4F6",
+                    backgroundColor: "#0F172A",
+                    border: "1px solid #1E293B",
+                    borderRadius: "12px",
+                    color: "#F8FAFC",
+                    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)"
                   }}
                 />
                 <Line
                   type="monotone"
                   dataKey="unlocks"
-                  stroke="#8B5CF6"
+                  stroke="#60A5FA"
                   strokeWidth={3}
-                  dot={{ fill: "#8B5CF6", strokeWidth: 2, r: 4 }}
+                  dot={{ fill: "#60A5FA", strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, fill: "#3B82F6", stroke: "#0F172A", strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -891,9 +897,9 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Category Distribution */}
-        <Card className="p-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Target className="w-5 h-5" />
+            <Target className="w-5 h-5 text-purple-400" />
             Category Distribution
           </h3>
           <div className="h-64">
@@ -903,10 +909,11 @@ const Analytics = ({ sites }) => {
                   data={categoryData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={40}
+                  innerRadius={50}
                   outerRadius={80}
                   paddingAngle={5}
                   dataKey="value"
+                  stroke="none"
                 >
                   {categoryData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
@@ -914,32 +921,34 @@ const Analytics = ({ sites }) => {
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #374151",
-                    borderRadius: "8px",
-                    color: "#F3F4F6",
+                    backgroundColor: "#0F172A",
+                    border: "1px solid #1E293B",
+                    borderRadius: "12px",
+                    color: "#F8FAFC",
+                    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)"
                   }}
+                  itemStyle={{ color: '#E2E8F0' }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="mt-4 grid grid-cols-2 gap-3">
             {categoryData.map((category, index) => (
               <div key={index} className="flex items-center gap-2">
                 <div
-                  className="w-3 h-3 rounded-full"
+                  className="w-3 h-3 rounded-full shadow-sm"
                   style={{ backgroundColor: category.color }}
                 />
-                <span className="text-sm text-gray-300">{category.name}</span>
+                <span className="text-sm font-medium text-slate-300">{category.name}</span>
               </div>
             ))}
           </div>
         </Card>
 
         {/* Most Unlocked Sites */}
-        <Card className="p-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5" />
+            <TrendingUp className="w-5 h-5 text-rose-400" />
             Most Unlocked Sites
           </h3>
           <div className="space-y-3">
@@ -949,20 +958,18 @@ const Analytics = ({ sites }) => {
               .map((site, index) => (
                 <div
                   key={site.id}
-                  className="flex items-center justify-between p-3 rounded-lg bg-white/5"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/50 border border-slate-700/50 hover:bg-slate-700 transition-colors"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-6 h-6 rounded bg-gradient-to-r from-blue-500 to-purple-600 text-white text-xs font-bold">
-                      {index + 1}
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 text-xs font-bold border border-blue-500/20">
+                      #{index + 1}
                     </div>
-                    <span className="text-lg">{site.icon}</span>
-                    <span className="text-white text-sm">{site.url}</span>
+                    <span className="text-xl">{site.icon}</span>
+                    <span className="text-white font-medium text-sm">{site.url}</span>
                   </div>
                   <div className="text-right">
-                    <div className="text-white font-semibold">
-                      {site.unlockCount}
-                    </div>
-                    <div className="text-xs text-gray-400">unlocks</div>
+                    <div className="text-white font-bold">{site.unlockCount}</div>
+                    <div className="text-xs text-slate-400 font-medium uppercase tracking-wider">Unlocks</div>
                   </div>
                 </div>
               ))}
@@ -970,37 +977,56 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Lock Duration Stats */}
-        <Card className="p-6">
+        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Clock className="w-5 h-5" />
+            <Clock className="w-5 h-5 text-emerald-400" />
             Average Lock Duration
           </h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={sites.slice(0, 6)}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <BarChart data={sites.slice(0, 6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#60A5FA" stopOpacity={1} />
+                    <stop offset="100%" stopColor="#312E81" stopOpacity={1} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                 <XAxis
                   dataKey="url"
-                  stroke="#9CA3AF"
-                  fontSize={10}
+                  stroke="#94A3B8"
+                  fontSize={11}
                   angle={-45}
                   textAnchor="end"
                   height={60}
+                  tick={{ fill: '#94A3B8' }}
+                  axisLine={false}
+                  tickLine={false}
                 />
-                <YAxis stroke="#9CA3AF" fontSize={12} />
+                <YAxis 
+                  stroke="#94A3B8" 
+                  fontSize={11} 
+                  tick={{ fill: '#94A3B8' }}
+                  axisLine={false}
+                  tickLine={false}
+                />
                 <Tooltip
+                  cursor={{ fill: '#1E293B', opacity: 0.4 }}
                   contentStyle={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #374151",
-                    borderRadius: "8px",
-                    color: "#F3F4F6",
+                    backgroundColor: "#0F172A",
+                    border: "1px solid #1E293B",
+                    borderRadius: "12px",
+                    color: "#F8FAFC",
+                    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.5)"
                   }}
+                  itemStyle={{ color: '#60A5FA' }}
                   formatter={(value) => [`${value} min`, "Duration"]}
                 />
                 <Bar
                   dataKey="avgLockDuration"
-                  fill="#10B981"
-                  radius={[4, 4, 0, 0]}
+                  fill="url(#barGradient)"
+                  radius={[6, 6, 0, 0]}
+                  barSize={40}
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -1009,31 +1035,31 @@ const Analytics = ({ sites }) => {
       </div>
 
       {/* Achievement Badges */}
-      <Card className="p-6">
+      <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-          <Zap className="w-5 h-5" />
+          <Zap className="w-5 h-5 text-yellow-400" />
           Recent Achievements
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-4 rounded-lg bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30">
-            <Trophy className="w-8 h-8 text-yellow-400 mb-2" />
+          <div className="p-5 rounded-xl bg-slate-900/50 border border-yellow-500/20 hover:border-yellow-500/40 transition-colors">
+            <Trophy className="w-8 h-8 text-yellow-400 mb-3" />
             <h4 className="font-semibold text-white">Week Warrior</h4>
-            <p className="text-xs text-gray-300">7 days streak</p>
+            <p className="text-xs text-slate-400 mt-1">7 days streak</p>
           </div>
-          <div className="p-4 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30">
-            <Shield className="w-8 h-8 text-blue-400 mb-2" />
+          <div className="p-5 rounded-xl bg-slate-900/50 border border-blue-500/20 hover:border-blue-500/40 transition-colors">
+            <Shield className="w-8 h-8 text-blue-400 mb-3" />
             <h4 className="font-semibold text-white">Lock Master</h4>
-            <p className="text-xs text-gray-300">100 sites locked</p>
+            <p className="text-xs text-slate-400 mt-1">100 sites locked</p>
           </div>
-          <div className="p-4 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30">
-            <Target className="w-8 h-8 text-green-400 mb-2" />
+          <div className="p-5 rounded-xl bg-slate-900/50 border border-emerald-500/20 hover:border-emerald-500/40 transition-colors">
+            <Target className="w-8 h-8 text-emerald-400 mb-3" />
             <h4 className="font-semibold text-white">Focus Champion</h4>
-            <p className="text-xs text-gray-300">30 challenges completed</p>
+            <p className="text-xs text-slate-400 mt-1">30 challenges completed</p>
           </div>
-          <div className="p-4 rounded-lg bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-500/30">
-            <Flame className="w-8 h-8 text-red-400 mb-2" />
+          <div className="p-5 rounded-xl bg-slate-900/50 border border-rose-500/20 hover:border-rose-500/40 transition-colors">
+            <Flame className="w-8 h-8 text-rose-400 mb-3" />
             <h4 className="font-semibold text-white">Streak Legend</h4>
-            <p className="text-xs text-gray-300">30 days streak</p>
+            <p className="text-xs text-slate-400 mt-1">30 days streak</p>
           </div>
         </div>
       </Card>
@@ -1312,10 +1338,11 @@ function Options() {
                               <div className="flex items-center gap-4 flex-shrink-0">
                                 <Badge
                                   variant={site.isLocked ? "destructive" : "secondary"}
-                                  className={`${site.isLocked
-                                    ? "bg-red-500/10 text-red-400 border-red-500/20"
-                                    : "bg-green-500/10 text-green-400 border-green-500/20"
-                                    } px-2.5 py-1 rounded-md`}
+                                  className={`${
+                                    site.isLocked
+                                      ? "bg-rose-500/10 text-rose-400 border-rose-500/20"
+                                      : "bg-green-500/10 text-green-400 border-green-500/20"
+                                  } px-2.5 py-1 rounded-md border`}
                                 >
                                   {site.isLocked ? "Locked" : "Unlocked"}
                                 </Badge>
@@ -1323,14 +1350,14 @@ function Options() {
                                 <Switch
                                   checked={site.isLocked}
                                   onCheckedChange={() => toggleSiteLock(site.id)}
-                                  className="data-[state=checked]:bg-red-500"
+                                  className="data-[state=checked]:bg-rose-700"
                                 />
 
                                 <Button
                                   variant="ghost"
                                   size="icon"
                                   onClick={() => openConfirmModal(site.id, site.url)}
-                                  className="text-slate-500 hover:text-red-400 hover:bg-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity"
+                                  className="text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </Button>
