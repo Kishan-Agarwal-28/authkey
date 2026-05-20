@@ -49,6 +49,7 @@ import {
   Flame,
   Trophy,
   Activity,
+  Bell,
   Zap,
   ChevronDown,
   ChevronUp,
@@ -535,11 +536,10 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                   <button
                     key={site.id}
                     onClick={() => toggleSiteSelection(site.id)}
-                    className={`flex items-center gap-2 p-2 rounded-lg border text-left transition-all ${
-                      selectedSites.includes(site.id)
-                        ? "bg-blue-500/20 border-blue-400 text-blue-300"
-                        : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
-                    }`}
+                    className={`flex items-center gap-2 p-2 rounded-lg border text-left transition-all ${selectedSites.includes(site.id)
+                      ? "bg-blue-500/20 border-blue-400 text-blue-300"
+                      : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+                      }`}
                   >
                     <span className="text-lg">{site.icon}</span>
                     <span className="truncate text-sm">{site.url}</span>
@@ -614,11 +614,10 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
               <button
                 key={option.id}
                 onClick={() => setRepeatOption(option.id)}
-                className={`p-3 rounded-lg border text-sm transition-all ${
-                  repeatOption === option.id
-                    ? "bg-purple-500/20 border-purple-400 text-purple-300"
-                    : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
-                }`}
+                className={`p-3 rounded-lg border text-sm transition-all ${repeatOption === option.id
+                  ? "bg-purple-500/20 border-purple-400 text-purple-300"
+                  : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+                  }`}
               >
                 {option.label}
               </button>
@@ -634,11 +633,10 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                   <button
                     key={day.id}
                     onClick={() => toggleCustomDay(day.id)}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all ${
-                      customDays.includes(day.id)
-                        ? "bg-blue-500 text-white"
-                        : "bg-white/10 text-gray-300 hover:bg-white/20"
-                    }`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all ${customDays.includes(day.id)
+                      ? "bg-blue-500 text-white"
+                      : "bg-white/10 text-gray-300 hover:bg-white/20"
+                      }`}
                   >
                     {day.label}
                   </button>
@@ -1056,7 +1054,7 @@ function Options() {
     siteName: "",
   });
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); 
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const sitesPerPage = 5;
 
@@ -1116,19 +1114,22 @@ function Options() {
 
   return (
     <div className="flex h-screen bg-slate-900 text-white overflow-hidden font-sans">
-      
+
       {/* LEFT SIDEBAR (Navy Blue Theme) */}
-      <aside 
-        className={`transition-all duration-300 ease-in-out bg-slate-950 border-r border-slate-800 flex flex-col ${
-          isSidebarCollapsed ? "w-20" : "w-64"
-        }`}
+      <aside
+        className={`transition-all duration-300 ease-in-out bg-slate-950 border-r border-slate-800 flex flex-col ${isSidebarCollapsed ? "w-20" : "w-64"
+          }`}
       >
         {/* Logo Area */}
-        <div className="h-20 flex items-center justify-between px-6 border-b border-slate-800">
-          <div className="flex items-center gap-3 overflow-hidden">
-            <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0">
+        <div className={`h-20 flex items-center border-b border-slate-800 ${isSidebarCollapsed ? 'justify-center' : 'justify-start px-6'}`}>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              title="Toggle Sidebar"
+            >
               <Shield className="w-6 h-6 text-white" />
-            </div>
+            </button>
             {!isSidebarCollapsed && (
               <h1 className="text-xl font-bold text-white whitespace-nowrap">
                 AuthKey
@@ -1151,11 +1152,10 @@ function Options() {
               key={tab.id}
               variant="ghost"
               onClick={() => setActiveTab(tab.id)}
-              className={`w-full flex items-center ${isSidebarCollapsed ? 'justify-center px-0' : 'justify-start px-4'} py-6 rounded-xl transition-all ${
-                activeTab === tab.id
-                  ? "bg-slate-800 text-blue-400"
-                  : "text-slate-400 hover:text-white hover:bg-slate-800/50"
-              }`}
+              className={`w-full flex items-center ${isSidebarCollapsed ? 'justify-center px-0' : 'justify-start px-4'} py-6 rounded-xl transition-all ${activeTab === tab.id
+                ? "bg-slate-800 text-blue-400"
+                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                }`}
               title={isSidebarCollapsed ? tab.label : undefined}
             >
               <tab.icon className={`w-5 h-5 ${isSidebarCollapsed ? 'mr-0' : 'mr-3'}`} />
@@ -1164,85 +1164,96 @@ function Options() {
           ))}
         </div>
 
-        {/* Bottom Profile / Collapse Toggle */}
-        <div className="p-4 border-t border-slate-800">
-          <Button
-            variant="ghost"
-            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-            className="w-full flex items-center justify-center text-slate-400 hover:text-white"
-          >
-            {isSidebarCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
-          </Button>
-        </div>
+
+        
       </aside>
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 overflow-y-auto bg-slate-900">
-        <div className="p-8 max-w-7xl mx-auto space-y-8">
+        <div className="p-6 pt-4 max-w-7xl mx-auto space-y-4">
           
           {/* Top Header Row (Optional Search/Settings placeholder to match Dasher) */}
-          <div className="flex justify-end items-center gap-4">
+          <div className="flex justify-end items-center gap-4 mb-2">
+            
+            {/* Notification Bell */}
+            <Button variant="ghost" size="icon" className="relative text-slate-400 hover:text-white bg-slate-800 rounded-full">
+              <Bell className="w-5 h-5" />
+              {/* Notification Badge */}
+              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-slate-900 translate-x-1 -translate-y-1">
+                2
+              </span>
+            </Button>
+
+            {/* Settings */}
             <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white bg-slate-800 rounded-full">
               <Settings className="w-5 h-5" />
             </Button>
+            
           </div>
 
           {activeTab === "dashboard" && (
             <>
-              {/* HERO BANNER (Dasher Style Gradient) */}
-              <div className="bg-gradient-to-r from-red-600 via-orange-500 to-emerald-600 rounded-2xl p-8 relative overflow-hidden shadow-lg border border-white/10">
-                <div className="relative z-10">
-                  <h2 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
+              {/* HERO BANNER */}
+              <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-blue-950 rounded-xl p-5 mb-5 relative overflow-hidden shadow-lg border border-white/5">
+                <div className="relative z-10 flex flex-col justify-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-1 flex items-center gap-2">
                     👋 Hello Swarnabh,
                   </h2>
-                  <p className="text-white/80 mb-6 max-w-md text-sm leading-relaxed">
+                  <p className="text-slate-300 mb-4 max-w-md text-xs sm:text-sm leading-relaxed">
                     Welcome to your AuthKey Dashboard! Monitor your unlocked sites, 
                     track your lock progress, and gain valuable privacy insights.
                   </p>
-                  <Button className="bg-white text-slate-900 hover:bg-slate-100 font-semibold px-6">
-                    Quick Review
-                  </Button>
+                  <div>
+                    <Button size="sm" className="bg-white/10 text-white hover:bg-white/20 border border-white/10 font-medium px-4 h-8 text-xs backdrop-blur-sm transition-all">
+                      Quick Review
+                    </Button>
+                  </div>
                 </div>
-                {/* Decorative overlay to soften the gradient slightly */}
-                <div className="absolute inset-0 bg-slate-900/10 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/50 pointer-events-none"></div>
               </div>
 
-              {/* 3-COLUMN KPI GRID */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="p-6 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-2xl shadow-sm">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-green-500/10">
-                      <Unlock className="w-6 h-6 text-green-400" />
+              {/* 3-COLUMN KPI GRID (Compact) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                <Card className="p-5 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-xl shadow-sm">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="p-2 rounded-lg bg-green-500/10">
+                      <Unlock className="w-5 h-5 text-green-400" />
                     </div>
                   </div>
-                  <p className="text-sm font-medium text-slate-400 mb-1">Today's Unlocks</p>
-                  <NumberTicker value={todayUnlocks} className="!text-3xl text-white bg-none font-sans" />
+                  <div>
+                    <p className="text-xs font-medium text-slate-400 mb-1">Today's Unlocks</p>
+                    <NumberTicker value={todayUnlocks} className="!text-2xl text-white bg-none font-sans" />
+                  </div>
                 </Card>
 
-                <Card className="p-6 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-2xl shadow-sm">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-red-500/10">
-                      <Lock className="w-6 h-6 text-red-400" />
+                <Card className="p-5 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-xl shadow-sm">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="p-2 rounded-lg bg-red-500/10">
+                      <Lock className="w-5 h-5 text-red-400" />
                     </div>
                   </div>
-                  <p className="text-sm font-medium text-slate-400 mb-1">Sites Locked</p>
-                  <div className="text-3xl font-bold text-white">{lockedCount}</div>
+                  <div>
+                    <p className="text-xs font-medium text-slate-400 mb-1">Sites Locked</p>
+                    <div className="text-2xl font-bold text-white leading-none">{lockedCount}</div>
+                  </div>
                 </Card>
 
-                <Card className="p-6 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-2xl shadow-sm">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-3 rounded-xl bg-blue-500/10">
-                      <Globe className="w-6 h-6 text-blue-400" />
+                <Card className="p-5 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-xl shadow-sm">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="p-2 rounded-lg bg-blue-500/10">
+                      <Globe className="w-5 h-5 text-blue-400" />
                     </div>
                   </div>
-                  <p className="text-sm font-medium text-slate-400 mb-1">Sites Unlocked</p>
-                  <div className="text-3xl font-bold text-white">{unlockedCount}</div>
+                  <div>
+                    <p className="text-xs font-medium text-slate-400 mb-1">Sites Unlocked</p>
+                    <div className="text-2xl font-bold text-white leading-none">{unlockedCount}</div>
+                  </div>
                 </Card>
               </div>
 
               {/* MAIN DATA GRID (2/3 width for lists, 1/3 for quick actions) */}
               <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                
+
                 {/* Left Side: Managed Sites (Takes up 2 columns) */}
                 <div className="xl:col-span-2">
                   <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
@@ -1301,11 +1312,10 @@ function Options() {
                               <div className="flex items-center gap-4 flex-shrink-0">
                                 <Badge
                                   variant={site.isLocked ? "destructive" : "secondary"}
-                                  className={`${
-                                    site.isLocked
-                                      ? "bg-red-500/10 text-red-400 border-red-500/20"
-                                      : "bg-green-500/10 text-green-400 border-green-500/20"
-                                  } px-2.5 py-1 rounded-md`}
+                                  className={`${site.isLocked
+                                    ? "bg-red-500/10 text-red-400 border-red-500/20"
+                                    : "bg-green-500/10 text-green-400 border-green-500/20"
+                                    } px-2.5 py-1 rounded-md`}
                                 >
                                   {site.isLocked ? "Locked" : "Unlocked"}
                                 </Badge>
@@ -1430,8 +1440,8 @@ function Options() {
 }
 
 createRoot(document.getElementById("root")!).render(
- <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-<Options />
- </ThemeProvider>
+  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <Options />
+  </ThemeProvider>
 
 );
