@@ -228,9 +228,9 @@ const LoginScreen = ({ onLogin }) => {
   };
 
   return (
-    <div className="w-full h-screen bg-zinc-900 flex items-center justify-center p-4">
+    <div className="w-full h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-black flex items-center justify-center p-4 relative">
       <div className="max-w-md w-full">
-        <Card className="p-8 text-center">
+        <Card className="p-8 text-center bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <div className="mb-6">
             <div className="p-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 inline-block mb-4">
               <Shield className="w-8 h-8 text-white" />
@@ -466,7 +466,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
   return (
     <div className="space-y-6">
       {/* Create New Schedule */}
-      <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+      <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
           <Timer className="w-5 h-5 text-emerald-400" />
           Create Schedule Lock
@@ -537,8 +537,8 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                     key={site.id}
                     onClick={() => toggleSiteSelection(site.id)}
                     className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all ${selectedSites.includes(site.id)
-                        ? "bg-blue-900/20 border-blue-500/30 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
-                        : "bg-slate-900/50 border-slate-700/50 text-slate-300 hover:bg-slate-700 hover:border-slate-600"
+                      ? "bg-blue-900/20 border-blue-500/30 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+                      : "bg-slate-900/50 border-slate-700/50 text-slate-300 hover:bg-slate-700 hover:border-slate-600"
                       }`}
                   >
                     <span className="text-xl flex-shrink-0">{site.icon}</span>
@@ -615,8 +615,8 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                 key={option.id}
                 onClick={() => setRepeatOption(option.id)}
                 className={`p-3 rounded-xl border text-sm font-medium transition-all ${repeatOption === option.id
-                    ? "bg-indigo-900/20 border-indigo-500/30 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.1)]"
-                    : "bg-slate-900/50 border-slate-700/50 text-slate-300 hover:bg-slate-700 hover:border-slate-600"
+                  ? "bg-indigo-900/20 border-indigo-500/30 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.1)]"
+                  : "bg-slate-900/50 border-slate-700/50 text-slate-300 hover:bg-slate-700 hover:border-slate-600"
                   }`}
               >
                 {option.label}
@@ -634,8 +634,8 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                     key={day.id}
                     onClick={() => toggleCustomDay(day.id)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${customDays.includes(day.id)
-                        ? "bg-blue-600 text-white shadow-sm"
-                        : "bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700"
                       }`}
                   >
                     {day.label}
@@ -662,7 +662,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
       </Card>
 
       {/* Active Schedules */}
-      <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+      <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
           <Calendar className="w-5 h-5 text-blue-400" />
           Active Schedules ({scheduledLocks.length})
@@ -684,8 +684,8 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                       <Badge
                         variant={schedule.isActive ? "default" : "secondary"}
                         className={`flex-shrink-0 ${schedule.isActive
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                            : "bg-slate-700 text-slate-300 border-slate-600"
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                          : "bg-slate-700 text-slate-300 border-slate-600"
                           }`}
                       >
                         {schedule.isActive ? "Active" : "Inactive"}
@@ -787,7 +787,7 @@ const Analytics = ({ sites }) => {
     <div className="space-y-6">
       {/* Streak Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Current Streak</p>
@@ -807,7 +807,7 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Longest Streak</p>
@@ -821,7 +821,7 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Challenges Completed</p>
@@ -845,8 +845,8 @@ const Analytics = ({ sites }) => {
             size="sm"
             onClick={() => setTimeRange(range)}
             className={`rounded-lg capitalize ${timeRange === range
-                ? "bg-blue-600 text-white border-transparent"
-                : "border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300"
+              ? "bg-blue-600 text-white border-transparent"
+              : "border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300"
               }`}
           >
             {range}
@@ -857,7 +857,7 @@ const Analytics = ({ sites }) => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Unlock Patterns */}
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Activity className="w-5 h-5 text-indigo-400" />
             Unlock Patterns
@@ -900,7 +900,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Category Distribution */}
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Target className="w-5 h-5 text-purple-400" />
             Category Distribution
@@ -949,7 +949,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Most Unlocked Sites */}
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-rose-400" />
             Most Unlocked Sites
@@ -980,7 +980,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Lock Duration Stats */}
-        <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Clock className="w-5 h-5 text-emerald-400" />
             Average Lock Duration
@@ -1038,7 +1038,7 @@ const Analytics = ({ sites }) => {
       </div>
 
       {/* Achievement Badges */}
-      <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+      <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
           <Zap className="w-5 h-5 text-yellow-400" />
           Recent Achievements
@@ -1085,7 +1085,7 @@ function Options() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-  const sitesPerPage = 5;
+  const sitesPerPage = 6;
 
   const toggleSiteLock = (id) => {
     setSites(
@@ -1142,25 +1142,27 @@ function Options() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-900 text-white overflow-hidden font-sans">
+    <div className="flex h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-black text-white overflow-hidden font-sans relative">
+      
 
-      {/* LEFT SIDEBAR (Navy Blue Theme) */}
-      <aside
-        className={`transition-all duration-300 ease-in-out bg-slate-950 border-r border-slate-800 flex flex-col ${isSidebarCollapsed ? "w-20" : "w-64"
-          }`}
+      {/* LEFT SIDEBAR (Glassmorphism) */}
+      <aside 
+        className={`relative z-10 transition-all duration-300 ease-in-outbg-slate-950/40 backdrop-blur-2xl border-white/5 shadow-[4px_0_24px_rgba(0,0,0,0.2)] flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.2)] ${
+          isSidebarCollapsed ? "w-20" : "w-64"
+        }`}
       >
         {/* Logo Area */}
-        <div className={`h-20 flex items-center border-b border-slate-800 ${isSidebarCollapsed ? 'justify-center' : 'justify-start px-6'}`}>
+        <div className={`h-20 flex items-center border-b border-white/5 ${isSidebarCollapsed ? 'justify-center' : 'justify-start px-6'}`}>
           <div className="flex items-center gap-3">
-            <button
+            <button 
               onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-              className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+              className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex-shrink-0 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer shadow-lg shadow-blue-900/20"
               title="Toggle Sidebar"
             >
               <Shield className="w-6 h-6 text-white" />
             </button>
             {!isSidebarCollapsed && (
-              <h1 className="text-xl font-bold text-white whitespace-nowrap">
+              <h1 className="text-xl font-bold text-white whitespace-nowrap tracking-wide">
                 AuthKey
               </h1>
             )}
@@ -1181,10 +1183,11 @@ function Options() {
               key={tab.id}
               variant="ghost"
               onClick={() => setActiveTab(tab.id)}
-              className={`w-full flex items-center ${isSidebarCollapsed ? 'justify-center px-0' : 'justify-start px-4'} py-6 rounded-xl transition-all ${activeTab === tab.id
-                ? "bg-slate-800 text-blue-400"
-                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
-                }`}
+              className={`w-full flex items-center ${isSidebarCollapsed ? 'justify-center px-0' : 'justify-start px-4'} py-6 rounded-xl transition-all ${
+                activeTab === tab.id
+                  ? "bg-blue-600/20 border border-blue-500/30 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
+                  : "text-slate-400 hover:text-white hover:bg-white/5 border border-transparent"
+              }`}
               title={isSidebarCollapsed ? tab.label : undefined}
             >
               <tab.icon className={`w-5 h-5 ${isSidebarCollapsed ? 'mr-0' : 'mr-3'}`} />
@@ -1192,9 +1195,6 @@ function Options() {
             </Button>
           ))}
         </div>
-
-
-
       </aside>
 
       {/* MAIN CONTENT AREA */}
@@ -1241,41 +1241,41 @@ function Options() {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-950/50 pointer-events-none"></div>
               </div>
 
-              {/* 3-COLUMN KPI GRID (Compact) */}
+              {/* 3-COLUMN KPI GRID (Glassmorphism) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-                <Card className="p-5 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-xl shadow-sm">
+                <Card className="p-5 bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:bg-slate-900/50 hover:border-white/20 transition-all duration-300 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                   <div className="flex items-start justify-between mb-3">
-                    <div className="p-2 rounded-lg bg-green-500/10">
+                    <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
                       <Unlock className="w-5 h-5 text-green-400" />
                     </div>
                   </div>
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-1">Today's Unlocks</p>
-                    <NumberTicker value={todayUnlocks} className="!text-2xl text-white bg-none font-sans" />
+                    <NumberTicker value={todayUnlocks} className="!text-3xl text-white bg-none font-sans" />
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-xl shadow-sm">
+                <Card className="p-5 bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:bg-slate-900/50 hover:border-white/20 transition-all duration-300 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                   <div className="flex items-start justify-between mb-3">
-                    <div className="p-2 rounded-lg bg-red-500/10">
-                      <Lock className="w-5 h-5 text-red-400" />
+                    <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
+                      <Lock className="w-5 h-5 text-rose-400" />
                     </div>
                   </div>
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-1">Sites Locked</p>
-                    <div className="text-2xl font-bold text-white leading-none">{lockedCount}</div>
+                    <div className="text-3xl font-bold text-white leading-none">{lockedCount}</div>
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-slate-800 border-slate-700 hover:border-slate-600 transition-colors rounded-xl shadow-sm">
+                <Card className="p-5 bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:bg-slate-900/50 hover:border-white/20 transition-all duration-300 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                   <div className="flex items-start justify-between mb-3">
-                    <div className="p-2 rounded-lg bg-blue-500/10">
+                    <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
                       <Globe className="w-5 h-5 text-blue-400" />
                     </div>
                   </div>
                   <div>
                     <p className="text-xs font-medium text-slate-400 mb-1">Sites Unlocked</p>
-                    <div className="text-2xl font-bold text-white leading-none">{unlockedCount}</div>
+                    <div className="text-3xl font-bold text-white leading-none">{unlockedCount}</div>
                   </div>
                 </Card>
               </div>
@@ -1285,7 +1285,7 @@ function Options() {
 
                 {/* Left Side: Managed Sites (Takes up 2 columns) */}
                 <div className="xl:col-span-2">
-                  <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+                  <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                       <h2 className="text-xl font-semibold text-white">Managed Sites</h2>
                       <Button
@@ -1316,35 +1316,49 @@ function Options() {
                       </div>
                     )}
 
+                    {/* Fixed height container for sites */}
                     <div className="min-h-[400px] flex flex-col">
-                      <div className="space-y-3 flex-grow">
+                      {/* CHANGED: Swapped space-y-3 for a CSS Grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow">
                         {currentSites.length > 0 ? (
                           currentSites.map((site) => (
                             <div
                               key={site.id}
-                              className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl bg-slate-900/50 border border-slate-700/50 hover:bg-slate-700 transition-colors gap-3 group"
+                              className="flex flex-col p-5 rounded-2xl bg-slate-900/40 border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all group relative"
                             >
-                              <div className="flex items-center gap-4 flex-grow min-w-0">
-                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xl flex-shrink-0 border border-slate-600">
+                              {/* Top row: Icon and absolute positioned Trash */}
+                              <div className="flex justify-between items-start mb-4">
+                                <div className="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-2xl flex-shrink-0 border border-slate-600 shadow-inner">
                                   {site.icon}
                                 </div>
-                                <div className="min-w-0 flex-grow">
-                                  <div className="font-medium text-white truncate text-base">
-                                    {site.url}
-                                  </div>
-                                  <div className="text-xs text-slate-400 mt-0.5">
-                                    {site.category}
-                                  </div>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => openConfirmModal(site.id, site.url)}
+                                  className="text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 absolute top-4 right-4"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+
+                              {/* Middle row: Text details */}
+                              <div className="mb-6">
+                                <div className="font-semibold text-white truncate text-base">
+                                  {site.url}
+                                </div>
+                                <div className="text-xs font-medium text-slate-400 mt-1">
+                                  {site.category}
                                 </div>
                               </div>
 
-                              <div className="flex items-center gap-4 flex-shrink-0">
+                              {/* Bottom row: Controls */}
+                              <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-700/50">
                                 <Badge
                                   variant={site.isLocked ? "destructive" : "secondary"}
                                   className={`${site.isLocked
                                       ? "bg-rose-500/10 text-rose-400 border-rose-500/20"
                                       : "bg-green-500/10 text-green-400 border-green-500/20"
-                                    } px-2.5 py-1 rounded-md border`}
+                                    } px-3 py-1 rounded-md border text-xs font-medium`}
                                 >
                                   {site.isLocked ? "Locked" : "Unlocked"}
                                 </Badge>
@@ -1354,20 +1368,11 @@ function Options() {
                                   onCheckedChange={() => toggleSiteLock(site.id)}
                                   className="data-[state=checked]:bg-rose-700"
                                 />
-
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => openConfirmModal(site.id, site.url)}
-                                  className="text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </Button>
                               </div>
                             </div>
                           ))
                         ) : (
-                          <div className="flex items-center justify-center h-64 text-slate-500">
+                          <div className="col-span-full flex items-center justify-center h-64 text-slate-500">
                             <div className="text-center">
                               <Globe className="w-12 h-12 mx-auto mb-4 opacity-30" />
                               <p>No sites added yet</p>
@@ -1409,7 +1414,7 @@ function Options() {
 
                 {/* Right Side: Quick Actions & Activity (Takes up 1 column) */}
                 <div className="space-y-6">
-                  <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+                  <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                     <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
                     <div className="space-y-3">
                       <Button variant="outline" className="w-full justify-start border-slate-600 bg-slate-900/50 hover:bg-slate-700 text-slate-300 py-6 rounded-xl">
@@ -1427,7 +1432,7 @@ function Options() {
                     </div>
                   </Card>
 
-                  <Card className="p-6 bg-slate-800 border-slate-700 rounded-2xl shadow-sm">
+                  <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                     <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
@@ -1474,3 +1479,6 @@ createRoot(document.getElementById("root")!).render(
   </ThemeProvider>
 
 );
+
+
+
