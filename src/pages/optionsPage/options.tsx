@@ -194,11 +194,11 @@ const hourlyUnlockData = [
 ];
 
 const categoryData = [
-  { name: "Social Media", value: 130, color: "#8B5CF6" },
-  { name: "Entertainment", value: 98, color: "#F59E0B" },
-  { name: "Development", value: 20, color: "#10B981" },
-  { name: "Professional", value: 15, color: "#3B82F6" },
-  { name: "Communication", value: 38, color: "#EF4444" },
+  { name: "Social Media", value: 130, color: "#06B6D4" },
+  { name: "Entertainment", value: 98, color: "#3B82F6" },
+  { name: "Development", value: 20, color: "#6366F1" },
+  { name: "Professional", value: 15, color: "#8B5CF6" },
+  { name: "Communication", value: 38, color: "#2DD4BF" },
 ];
 
 // Number Ticker Component
@@ -230,7 +230,7 @@ const LoginScreen = ({ onLogin }) => {
   return (
     <div className="w-full h-screen flex items-center justify-center p-4 relative" style={{background: 'linear-gradient(to bottom, #0f2460 0%, #071535 35%, #030a18 65%, #000000 100%)'}}>
       <div className="max-w-md w-full">
-        <Card className="p-8 text-center bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-8 text-center bg-white/[0.04] backdrop-blur-2xlborder border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <div className="mb-6">
             <div className="p-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 inline-block mb-4">
               <Shield className="w-8 h-8 text-white" />
@@ -466,7 +466,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
   return (
     <div className="space-y-6">
       {/* Create New Schedule */}
-      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
           <Timer className="w-5 h-5 text-emerald-400" />
           Create Schedule Lock
@@ -662,7 +662,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
       </Card>
 
       {/* Active Schedules */}
-      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
           <Calendar className="w-5 h-5 text-blue-400" />
           Active Schedules ({scheduledLocks.length})
@@ -787,7 +787,7 @@ const Analytics = ({ sites }) => {
     <div className="space-y-6">
       {/* Streak Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Current Streak</p>
@@ -807,7 +807,7 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Longest Streak</p>
@@ -821,7 +821,7 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Challenges Completed</p>
@@ -857,7 +857,7 @@ const Analytics = ({ sites }) => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Unlock Patterns */}
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Activity className="w-5 h-5 text-indigo-400" />
             Unlock Patterns
@@ -889,10 +889,11 @@ const Analytics = ({ sites }) => {
                 <Line
                   type="monotone"
                   dataKey="unlocks"
-                  stroke="#60A5FA"
+                  stroke="#06B6D4"
                   strokeWidth={3}
-                  dot={{ fill: "#60A5FA", strokeWidth: 2, r: 4 }}
-                  activeDot={{ r: 6, fill: "#3B82F6", stroke: "#0F172A", strokeWidth: 2 }}
+                  dot={{ fill: "#06B6D4", strokeWidth: 2, r: 4, style: { filter: "drop-shadow(0px 0px 8px rgba(6, 182, 212, 0.8))" } }}
+                  activeDot={{ r: 6, fill: "#E0F2FE", stroke: "#0284C7", strokeWidth: 2, style: { filter: "drop-shadow(0px 0px 12px rgba(14, 165, 233, 1))" } }}
+                  style={{ filter: "drop-shadow(0px 0px 10px rgba(6, 182, 212, 0.6))" }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -900,7 +901,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Category Distribution */}
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Target className="w-5 h-5 text-purple-400" />
             Category Distribution
@@ -919,7 +920,11 @@ const Analytics = ({ sites }) => {
                   stroke="none"
                 >
                   {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={entry.color} 
+                      className="transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.8)] outline-none cursor-pointer" 
+                    />
                   ))}
                 </Pie>
                 <Tooltip
@@ -949,7 +954,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Most Unlocked Sites */}
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-rose-400" />
             Most Unlocked Sites
@@ -980,7 +985,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Lock Duration Stats */}
-        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Clock className="w-5 h-5 text-emerald-400" />
             Average Lock Duration
@@ -990,8 +995,8 @@ const Analytics = ({ sites }) => {
               <BarChart data={sites.slice(0, 6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#60A5FA" stopOpacity={1} />
-                    <stop offset="100%" stopColor="#312E81" stopOpacity={1} />
+                    <stop offset="0%" stopColor="#06B6D4" stopOpacity={1} />
+                    <stop offset="100%" stopColor="#3B82F6" stopOpacity={1} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
@@ -1030,7 +1035,14 @@ const Analytics = ({ sites }) => {
                   fill="url(#barGradient)"
                   radius={[6, 6, 0, 0]}
                   barSize={40}
-                />
+                >
+                  {sites.slice(0, 6).map((entry, index) => (
+                    <Cell 
+                      key={`bar-cell-${index}`} 
+                      className="transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(6,182,212,0.8)] cursor-pointer" 
+                    />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -1038,7 +1050,7 @@ const Analytics = ({ sites }) => {
       </div>
 
       {/* Achievement Badges */}
-      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
           <Zap className="w-5 h-5 text-yellow-400" />
           Recent Achievements
@@ -1250,7 +1262,7 @@ function Options() {
 
               {/* 3-COLUMN KPI GRID (Glassmorphism) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:bg-white/[0.07] hover:border-blue-400/20 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl borderhover:bg-white/[0.07] hover:border-blue-400/50 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] ">
                   <div className="flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
                       <Unlock className="w-5 h-5 text-green-400" />
@@ -1262,7 +1274,7 @@ function Options() {
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:bg-white/[0.07] hover:border-blue-400/20 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10hover:bg-white/[0.07] hover:border-blue-400/50 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
                   <div className="flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
                       <Lock className="w-5 h-5 text-rose-400" />
@@ -1274,7 +1286,7 @@ function Options() {
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:bg-white/[0.07] hover:border-blue-400/20 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10hover:bg-white/[0.07] hover:border-blue-400/50 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]">
                   <div className="flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
                       <Globe className="w-5 h-5 text-blue-400" />
@@ -1292,7 +1304,7 @@ function Options() {
 
                 {/* Left Side: Managed Sites (Takes up 2 columns) */}
                 <div className="xl:col-span-2">
-                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                       <h2 className="text-xl font-semibold text-white">Managed Sites</h2>
                       <Button
@@ -1421,7 +1433,7 @@ function Options() {
 
                 {/* Right Side: Quick Actions & Activity (Takes up 1 column) */}
                 <div className="space-y-6">
-                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
                     <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
                     <div className="space-y-3">
                       <Button variant="outline" className="w-full justify-start border-slate-600 bg-slate-900/50 hover:bg-slate-700 text-slate-300 py-6 rounded-xl">
@@ -1439,7 +1451,7 @@ function Options() {
                     </div>
                   </Card>
 
-                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
+                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:border-blue-400/50 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300">
                     <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
