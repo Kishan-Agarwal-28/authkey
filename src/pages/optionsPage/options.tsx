@@ -228,9 +228,9 @@ const LoginScreen = ({ onLogin }) => {
   };
 
   return (
-    <div className="w-full h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-black flex items-center justify-center p-4 relative">
+    <div className="w-full h-screen flex items-center justify-center p-4 relative" style={{background: 'linear-gradient(to bottom, #0f2460 0%, #071535 35%, #030a18 65%, #000000 100%)'}}>
       <div className="max-w-md w-full">
-        <Card className="p-8 text-center bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-8 text-center bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <div className="mb-6">
             <div className="p-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 inline-block mb-4">
               <Shield className="w-8 h-8 text-white" />
@@ -466,7 +466,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
   return (
     <div className="space-y-6">
       {/* Create New Schedule */}
-      <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
           <Timer className="w-5 h-5 text-emerald-400" />
           Create Schedule Lock
@@ -662,7 +662,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
       </Card>
 
       {/* Active Schedules */}
-      <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
           <Calendar className="w-5 h-5 text-blue-400" />
           Active Schedules ({scheduledLocks.length})
@@ -787,7 +787,7 @@ const Analytics = ({ sites }) => {
     <div className="space-y-6">
       {/* Streak Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Current Streak</p>
@@ -807,7 +807,7 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Longest Streak</p>
@@ -821,7 +821,7 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-slate-400 mb-1">Challenges Completed</p>
@@ -857,7 +857,7 @@ const Analytics = ({ sites }) => {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Unlock Patterns */}
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Activity className="w-5 h-5 text-indigo-400" />
             Unlock Patterns
@@ -900,7 +900,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Category Distribution */}
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Target className="w-5 h-5 text-purple-400" />
             Category Distribution
@@ -949,7 +949,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Most Unlocked Sites */}
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-rose-400" />
             Most Unlocked Sites
@@ -980,7 +980,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Lock Duration Stats */}
-        <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+        <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
           <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <Clock className="w-5 h-5 text-emerald-400" />
             Average Lock Duration
@@ -1038,7 +1038,7 @@ const Analytics = ({ sites }) => {
       </div>
 
       {/* Achievement Badges */}
-      <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+      <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
           <Zap className="w-5 h-5 text-yellow-400" />
           Recent Achievements
@@ -1142,15 +1142,23 @@ function Options() {
   }
 
   return (
-    <div className="flex h-screen bg-gradient-to-b from-blue-950 via-slate-950 to-black text-white overflow-hidden font-sans relative">
+    <div className="flex h-screen text-white overflow-hidden font-sans relative" style={{background: 'linear-gradient(to bottom, #0f2460 0%, #071535 35%, #030a18 65%, #000000 100%)'}}>
       
 
       {/* LEFT SIDEBAR (Glassmorphism) */}
       <aside 
-        className={`relative z-10 transition-all duration-300 ease-in-outbg-slate-950/40 backdrop-blur-2xl border-white/5 shadow-[4px_0_24px_rgba(0,0,0,0.2)] flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.2)] ${
+        className={`relative z-10 transition-all duration-300 ease-in-out flex flex-col border-r ${
           isSidebarCollapsed ? "w-20" : "w-64"
         }`}
+        style={{
+          background: 'rgba(10, 20, 60, 0.35)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderColor: 'rgba(255, 255, 255, 0.07)',
+          boxShadow: '4px 0 24px rgba(0, 0, 0, 0.4)',
+        }}
       >
+     
         {/* Logo Area */}
         <div className={`h-20 flex items-center border-b border-white/5 ${isSidebarCollapsed ? 'justify-center' : 'justify-start px-6'}`}>
           <div className="flex items-center gap-3">
@@ -1198,23 +1206,22 @@ function Options() {
       </aside>
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 overflow-y-auto bg-slate-900">
+      <main className="flex-1 overflow-y-auto relative z-10" style={{background: 'transparent'}}>
         <div className="p-6 pt-4 max-w-7xl mx-auto space-y-4">
 
           {/* Top Header Row (Optional Search/Settings placeholder to match Dasher) */}
           <div className="flex justify-end items-center gap-4 mb-2">
 
             {/* Notification Bell */}
-            <Button variant="ghost" size="icon" className="relative text-slate-400 hover:text-white bg-slate-800 rounded-full">
+            <Button variant="ghost" size="icon" className="relative text-slate-400 hover:text-white rounded-full" style={{background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', border: '1px solid rgba(99,130,255,0.1)'}}>
               <Bell className="w-5 h-5" />
-              {/* Notification Badge */}
               <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-slate-900 translate-x-1 -translate-y-1">
                 2
               </span>
             </Button>
 
             {/* Settings */}
-            <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white bg-slate-800 rounded-full">
+            <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white rounded-full" style={{background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', border: '1px solid rgba(99,130,255,0.1)'}}>
               <Settings className="w-5 h-5" />
             </Button>
 
@@ -1223,7 +1230,7 @@ function Options() {
           {activeTab === "dashboard" && (
             <>
               {/* HERO BANNER */}
-              <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-blue-950 rounded-xl p-5 mb-5 relative overflow-hidden shadow-lg border border-white/5">
+              <div className="rounded-xl p-5 mb-5 relative overflow-hidden border" style={{background: 'linear-gradient(135deg, rgba(30,58,138,0.5) 0%, rgba(15,23,60,0.4) 50%, rgba(29,78,216,0.3) 100%)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderColor: 'rgba(99,130,255,0.15)', boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(148,163,255,0.1)'}}>
                 <div className="relative z-10 flex flex-col justify-center">
                   <h2 className="text-xl sm:text-2xl font-bold text-white mb-1 flex items-center gap-2">
                     👋 Hello Swarnabh,
@@ -1243,7 +1250,7 @@ function Options() {
 
               {/* 3-COLUMN KPI GRID (Glassmorphism) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-                <Card className="p-5 bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:bg-slate-900/50 hover:border-white/20 transition-all duration-300 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:bg-white/[0.07] hover:border-blue-400/20 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
                   <div className="flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
                       <Unlock className="w-5 h-5 text-green-400" />
@@ -1255,7 +1262,7 @@ function Options() {
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:bg-slate-900/50 hover:border-white/20 transition-all duration-300 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:bg-white/[0.07] hover:border-blue-400/20 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
                   <div className="flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20">
                       <Lock className="w-5 h-5 text-rose-400" />
@@ -1267,7 +1274,7 @@ function Options() {
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:bg-slate-900/50 hover:border-white/20 transition-all duration-300 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                <Card className="p-5 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 hover:bg-white/[0.07] hover:border-blue-400/20 transition-all duration-300 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
                   <div className="flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
                       <Globe className="w-5 h-5 text-blue-400" />
@@ -1285,7 +1292,7 @@ function Options() {
 
                 {/* Left Side: Managed Sites (Takes up 2 columns) */}
                 <div className="xl:col-span-2">
-                  <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                       <h2 className="text-xl font-semibold text-white">Managed Sites</h2>
                       <Button
@@ -1324,7 +1331,7 @@ function Options() {
                           currentSites.map((site) => (
                             <div
                               key={site.id}
-                              className="flex flex-col p-5 rounded-2xl bg-slate-900/40 border border-slate-700/50 hover:bg-slate-800 hover:border-slate-600 transition-all group relative"
+                              className="flex flex-col p-5 rounded-2xl border hover:border-blue-400/20 transition-all group relative" style={{background: 'rgba(255,255,255,0.03)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderColor: 'rgba(99,130,255,0.1)', boxShadow: '0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(148,163,255,0.05)'}}
                             >
                               {/* Top row: Icon and absolute positioned Trash */}
                               <div className="flex justify-between items-start mb-4">
@@ -1414,7 +1421,7 @@ function Options() {
 
                 {/* Right Side: Quick Actions & Activity (Takes up 1 column) */}
                 <div className="space-y-6">
-                  <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
                     <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
                     <div className="space-y-3">
                       <Button variant="outline" className="w-full justify-start border-slate-600 bg-slate-900/50 hover:bg-slate-700 text-slate-300 py-6 rounded-xl">
@@ -1432,7 +1439,7 @@ function Options() {
                     </div>
                   </Card>
 
-                  <Card className="p-6 bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                  <Card className="p-6 bg-white/[0.04] backdrop-blur-2xl border border-blue-400/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(148,163,255,0.06)]">
                     <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
@@ -1479,6 +1486,3 @@ createRoot(document.getElementById("root")!).render(
   </ThemeProvider>
 
 );
-
-
-
