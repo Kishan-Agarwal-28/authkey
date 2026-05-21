@@ -1373,11 +1373,11 @@ function Options() {
                               {/* Bottom row: Controls */}
                               <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-700/50">
                                 <Badge
-                                  variant={site.isLocked ? "destructive" : "secondary"}
+                                  variant="outline"
                                   className={`${site.isLocked
-                                      ? "bg-rose-500/10 text-rose-400 border-rose-500/20"
-                                      : "bg-green-500/10 text-green-400 border-green-500/20"
-                                    } px-3 py-1 rounded-md border text-xs font-medium`}
+                                      ? "bg-rose-500/20 text-rose-200 border-rose-500/50 shadow-[0_0_10px_rgba(225,29,72,0.2)]"
+                                      : "bg-emerald-500/20 text-emerald-200 border-emerald-500/50 shadow-[0_0_10px_rgba(16,185,129,0.2)]"
+                                    } px-3 py-1 rounded-md border text-xs font-bold tracking-wide`}
                                 >
                                   {site.isLocked ? "Locked" : "Unlocked"}
                                 </Badge>
