@@ -841,12 +841,12 @@ const Analytics = ({ sites }) => {
         {["day", "week", "month"].map((range) => (
           <Button
             key={range}
-            variant={timeRange === range ? "default" : "outline"}
+            variant="ghost"
             size="sm"
             onClick={() => setTimeRange(range)}
             className={`rounded-lg capitalize ${timeRange === range
-              ? "bg-black text-white border-black"
-              : "border-gray-300 bg-white hover:bg-gray-50 text-black"
+              ? "!bg-black !text-white border border-black"
+              : "border border-gray-300 bg-white hover:bg-gray-50 text-black"
               }`}
           >
             {range}
@@ -1232,6 +1232,8 @@ function Options() {
             <>
               {/* HERO BANNER */}
               <div className="rounded-2xl p-6 mb-5 relative overflow-hidden border border-gray-200 bg-white shadow-sm">
+                {/* Decorative oversized Shield watermark */}
+                <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 opacity-50 pointer-events-none" />
                 <div className="relative z-10 flex flex-col justify-center">
                   <h2 className="text-xl sm:text-2xl font-bold text-black mb-1 flex items-center gap-2 tracking-tight">
                     👋 Hello Swarnabh,
