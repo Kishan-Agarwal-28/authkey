@@ -194,11 +194,11 @@ const hourlyUnlockData = [
 ];
 
 const categoryData = [
-  { name: "Social Media", value: 130, color: "#06B6D4" },
-  { name: "Entertainment", value: 98, color: "#3B82F6" },
-  { name: "Development", value: 20, color: "#6366F1" },
-  { name: "Professional", value: 15, color: "#8B5CF6" },
-  { name: "Communication", value: 38, color: "#2DD4BF" },
+  { name: "Social Media", value: 130, color: "#000000" },
+  { name: "Entertainment", value: 98, color: "#404040" },
+  { name: "Development", value: 20, color: "#808080" },
+  { name: "Professional", value: 15, color: "#B0B0B0" },
+  { name: "Communication", value: 38, color: "#D4D4D4" },
 ];
 
 // Number Ticker Component
@@ -992,12 +992,6 @@ const Analytics = ({ sites }) => {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sites.slice(0, 6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#111827" stopOpacity={1} />
-                    <stop offset="100%" stopColor="#6B7280" stopOpacity={1} />
-                  </linearGradient>
-                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
                 <XAxis
                   dataKey="url"
@@ -1031,7 +1025,7 @@ const Analytics = ({ sites }) => {
                 />
                 <Bar
                   dataKey="avgLockDuration"
-                  fill="url(#barGradient)"
+                  fill="#000000"
                   radius={[6, 6, 0, 0]}
                   barSize={40}
                 >
