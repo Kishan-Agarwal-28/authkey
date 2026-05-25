@@ -57,6 +57,9 @@ import {
   ChevronUp,
   Repeat,
   Search,
+  X,
+  Check,
+  Tag,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { createRoot } from "react-dom/client";
@@ -359,6 +362,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
   const [showAddSite, setShowAddSite] = useState(false);
   const [newSiteUrl, setNewSiteUrl] = useState("");
   const [showSites, setShowSites] = useState(true);
+  const [siteSearchQuery, setSiteSearchQuery] = useState("");
 
   const [scheduledLocks, setScheduledLocks] = useState<Schedule[]>([
     {
@@ -391,6 +395,33 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
         ? prev.filter((id) => id !== siteId)
         : [...prev, siteId]
     );
+  };
+
+  const handleAddSite = () => {
+    if (newSiteUrl.trim()) {
+      const cleanUrl = newSiteUrl.trim().toLowerCase();
+      // Check if URL already exists
+      const existing = sites.find((s) => s.url.toLowerCase() === cleanUrl);
+      if (existing) {
+        if (!selectedSites.includes(existing.id)) {
+          setSelectedSites((prev) => [...prev, existing.id]);
+        }
+      } else {
+        const newSite: Site = {
+          id: Math.max(0, ...sites.map((s) => s.id)) + 1,
+          url: cleanUrl,
+          icon: "🌐",
+          isLocked: true,
+          category: "Custom",
+          unlockCount: 0,
+          avgLockDuration: 0,
+        };
+        setSites((prev) => [...prev, newSite]);
+        setSelectedSites((prev) => [...prev, newSite.id]);
+      }
+      setNewSiteUrl("");
+      setShowAddSite(false);
+    }
   };
 
   const toggleCustomDay = (dayId: string) => {
@@ -480,13 +511,16 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
           <label className="text-sm font-medium text-gray-500 mb-2 block uppercase tracking-wider">
             Schedule Name (Optional)
           </label>
-          <input
-            type="text"
-            value={scheduleName}
-            onChange={(e) => setScheduleName(e.target.value)}
-            placeholder="e.g., Work Focus, Sleep Time, Study Hours"
-            className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black transition-shadow"
-          />
+          <div className="relative">
+            <Tag className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            <input
+              type="text"
+              value={scheduleName}
+              onChange={(e) => setScheduleName(e.target.value)}
+              placeholder="e.g., Work Focus, Sleep Time, Study Hours"
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black transition-shadow"
+            />
+          </div>
         </div>
 
         {/* Site Selection */}
@@ -521,33 +555,74 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
           </div>
 
           {showAddSite && (
-            <div className="mb-4">
-              <input
-                type="text"
-                value={newSiteUrl}
-                onChange={(e) => setNewSiteUrl(e.target.value)}
-                placeholder="Enter website URL"
-                className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
-              />
+            <div className="mb-4 flex gap-2">
+              <div className="relative flex-grow">
+                <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <input
+                  type="text"
+                  value={newSiteUrl}
+                  onChange={(e) => setNewSiteUrl(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleAddSite();
+                    }
+                  }}
+                  placeholder="Enter website URL (e.g., twitter.com)"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
+              <Button
+                onClick={handleAddSite}
+                disabled={!newSiteUrl.trim()}
+                className="bg-black hover:bg-gray-900 text-white rounded-lg px-4 h-[42px] font-medium"
+              >
+                Add
+              </Button>
             </div>
           )}
 
           {showSites && (
             <div>
+              {/* Search Filter for Sites */}
+              <div className="relative mb-3">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search sites to lock..."
+                  value={siteSearchQuery}
+                  onChange={(e) => setSiteSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                {sites.map((site) => (
-                  <button
-                    key={site.id}
-                    onClick={() => toggleSiteSelection(site.id)}
-                    className={`flex items-center gap-3 p-3 rounded-xl border text-left transition-all ${selectedSites.includes(site.id)
-                      ? "bg-black border-black text-white"
-                      : "bg-white border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300"
-                      }`}
-                  >
-                    <span className="text-xl flex-shrink-0">{site.icon}</span>
-                    <span className="truncate text-sm font-medium">{site.url}</span>
-                  </button>
-                ))}
+                {sites
+                  .filter((site) =>
+                    site.url.toLowerCase().includes(siteSearchQuery.toLowerCase())
+                  )
+                  .map((site) => {
+                    const isSelected = selectedSites.includes(site.id);
+                    return (
+                      <button
+                        key={site.id}
+                        onClick={() => toggleSiteSelection(site.id)}
+                        className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
+                          isSelected
+                            ? "bg-black border-black text-white shadow-sm"
+                            : "bg-white border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span className="text-xl flex-shrink-0">{site.icon}</span>
+                          <span className="truncate text-sm font-medium">{site.url}</span>
+                        </div>
+                        {isSelected && (
+                          <Check className="w-4 h-4 text-white flex-shrink-0 ml-2" />
+                        )}
+                      </button>
+                    );
+                  })}
               </div>
 
               <div className="flex flex-wrap gap-2">
@@ -557,9 +632,9 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                     <Badge
                       key={siteId}
                       variant="secondary"
-                      className="text-xs bg-gray-100 text-black border border-gray-300 pl-2 pr-1 py-1"
+                      className="text-xs bg-gray-100 text-black border border-gray-300 pl-2 pr-1 py-1 flex items-center gap-1 rounded-lg"
                     >
-                      <span className="mr-1">{site.icon}</span> {site.url}
+                      <span className="mr-0.5">{site.icon}</span> {site.url}
                       <Button
                         variant="ghost"
                         size="icon"
@@ -567,9 +642,9 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                           e.stopPropagation();
                           toggleSiteSelection(siteId);
                         }}
-                        className="ml-1 h-4 w-4 p-0 text-gray-500 hover:text-black hover:bg-transparent"
+                        className="ml-1 h-4 w-4 p-0 text-gray-500 hover:text-red-500 hover:bg-transparent transition-colors"
                       >
-                        <Lock className="w-2.5 h-2.5" />
+                        <X className="w-3 h-3" />
                       </Button>
                     </Badge>
                   ) : null;
@@ -585,23 +660,29 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
             <label className="text-sm font-medium text-gray-500 mb-2 block uppercase tracking-wider">
               Start Time
             </label>
-            <input
-              type="time"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black [color-scheme:light]"
-            />
+            <div className="relative">
+              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <input
+                type="time"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black [color-scheme:light]"
+              />
+            </div>
           </div>
           <div>
             <label className="text-sm font-medium text-gray-500 mb-2 block uppercase tracking-wider">
               End Time
             </label>
-            <input
-              type="time"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black [color-scheme:light]"
-            />
+            <div className="relative">
+              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <input
+                type="time"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black [color-scheme:light]"
+              />
+            </div>
           </div>
         </div>
 
@@ -617,10 +698,11 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
               <button
                 key={option.id}
                 onClick={() => setRepeatOption(option.id)}
-                className={`p-3 rounded-xl border text-sm font-medium transition-all ${repeatOption === option.id
-                  ? "bg-black border-black text-white"
-                  : "bg-white border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300"
-                  }`}
+                className={`p-3 rounded-xl border text-sm font-medium transition-all ${
+                  repeatOption === option.id
+                    ? "bg-black border-black text-white"
+                    : "bg-white border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300"
+                }`}
               >
                 {option.label}
               </button>
@@ -636,10 +718,11 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                   <button
                     key={day.id}
                     onClick={() => toggleCustomDay(day.id)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${customDays.includes(day.id)
-                      ? "bg-black text-white"
-                      : "bg-white text-black border border-gray-300 hover:bg-gray-50"
-                      }`}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      customDays.includes(day.id)
+                        ? "bg-black text-white"
+                        : "bg-white text-black border border-gray-300 hover:bg-gray-50"
+                    }`}
                   >
                     {day.label}
                   </button>
@@ -662,6 +745,19 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
           <Clock className="w-5 h-5 mr-2" />
           Create Schedule Lock
         </Button>
+        {!isFormValid() && (
+          <p className="text-xs text-gray-400 text-center mt-3 font-medium">
+            {!selectedSites.length && !startTime && !endTime
+              ? "Select at least one site and specify start/end times to create a lock"
+              : !selectedSites.length
+              ? "Please select at least one site to lock"
+              : !startTime || !endTime
+              ? "Please specify both Start and End times"
+              : repeatOption === "custom" && !customDays.length
+              ? "Please select at least one custom day"
+              : ""}
+          </p>
+        )}
       </Card>
 
       {/* Active Schedules */}
