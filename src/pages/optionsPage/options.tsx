@@ -24,6 +24,8 @@ import {
   PieChart,
   Pie,
   Cell,
+  AreaChart,
+  Area,
 } from "recharts";
 import {
   Lock,
@@ -788,8 +790,9 @@ const Analytics = ({ sites }) => {
     <div className="space-y-6">
       {/* Streak Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
+        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm relative overflow-hidden">
+          <Flame className="absolute -right-8 -bottom-16 w-40 h-40 text-orange-500 opacity-15 pointer-events-none" />
+          <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Current Streak</p>
               <div className="flex items-center gap-2">
@@ -808,8 +811,9 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
+        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm relative overflow-hidden">
+          <Trophy className="absolute -right-8 -bottom-16 w-40 h-40 text-yellow-500 opacity-15 pointer-events-none" />
+          <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Longest Streak</p>
               <div className="flex items-center gap-2">
@@ -822,8 +826,9 @@ const Analytics = ({ sites }) => {
           </div>
         </Card>
 
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between">
+        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm relative overflow-hidden">
+          <Award className="absolute -right-8 -bottom-16 w-40 h-40 text-green-600 opacity-15 pointer-events-none" />
+          <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Challenges Completed</p>
               <div className="flex items-center gap-2">
@@ -856,19 +861,25 @@ const Analytics = ({ sites }) => {
       </div>
 
       {/* Charts Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="columns-1 xl:columns-2 gap-6 space-y-6">
         {/* Unlock Patterns */}
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-          <h3 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
+        <Card className="p-5 pb-3 bg-white border border-gray-200 rounded-2xl shadow-sm break-inside-avoid">
+          <h3 className="text-lg font-semibold text-black mb-3 flex items-center gap-2">
             <Activity className="w-5 h-5 text-black" />
             Unlock Patterns
           </h3>
-          <div className="h-64">
+          <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart
+              <AreaChart
                 data={timeRange === "day" ? hourlyUnlockData : weeklyUnlockData}
                 margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
               >
+                <defs>
+                  <linearGradient id="unlockGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#000000" stopOpacity={0.25} />
+                    <stop offset="100%" stopColor="#000000" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
                 <XAxis
                   dataKey={timeRange === "day" ? "hour" : "day"}
@@ -887,21 +898,22 @@ const Analytics = ({ sites }) => {
                     boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)"
                   }}
                 />
-                <Line
+                <Area
                   type="monotone"
                   dataKey="unlocks"
                   stroke="#000000"
                   strokeWidth={2}
+                  fill="url(#unlockGradient)"
                   dot={{ fill: "#000000", strokeWidth: 2, r: 4 }}
                   activeDot={{ r: 6, fill: "#000000", stroke: "#FFFFFF", strokeWidth: 2 }}
                 />
-              </LineChart>
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
         {/* Category Distribution */}
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm break-inside-avoid">
           <h3 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
             <Target className="w-5 h-5 text-black" />
             Category Distribution
@@ -954,7 +966,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Most Unlocked Sites */}
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
+        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm break-inside-avoid">
           <h3 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-black" />
             Most Unlocked Sites
@@ -985,12 +997,12 @@ const Analytics = ({ sites }) => {
         </Card>
 
         {/* Lock Duration Stats */}
-        <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-          <h3 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
+        <Card className="p-5 pb-3 bg-white border border-gray-200 rounded-2xl shadow-sm break-inside-avoid">
+          <h3 className="text-lg font-semibold text-black mb-3 flex items-center gap-2">
             <Clock className="w-5 h-5 text-black" />
             Average Lock Duration
           </h3>
-          <div className="h-64">
+          <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sites.slice(0, 6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
@@ -1441,7 +1453,7 @@ function Options() {
                   </Card>
                 </div>
 
-                {/* Right Side: Quick Actions & Activity (Takes up 1 column) */}
+                {/* Right Side: Quick Actions & Activity */}
                 <div className="space-y-6">
                   <Card className="p-6 bg-white border border-gray-200 hover:border-gray-300 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <h3 className="text-lg font-semibold text-black mb-4 tracking-tight">Quick Actions</h3>
