@@ -54,6 +54,7 @@ import {
   ChevronDown,
   ChevronUp,
   Repeat,
+  Search,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { createRoot } from "react-dom/client";
@@ -1208,25 +1209,41 @@ function Options() {
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 overflow-y-auto relative z-10 bg-[#F5F5F5]">
-        <div className="p-6 pt-4 max-w-7xl mx-auto space-y-4">
 
-          {/* Top Header Row */}
-          <div className="flex justify-end items-center gap-4 mb-2">
+        {/* Sticky Navbar */}
+        <div className="sticky top-0 z-30 bg-[#F5F5F5]/80 backdrop-blur-md border-b border-gray-200">
+          <div className="flex justify-between items-center gap-4 px-6 py-3 max-w-7xl mx-auto">
 
-            {/* Notification Bell */}
-            <Button variant="ghost" size="icon" className="relative text-gray-500 hover:text-black rounded-full bg-white border border-gray-200 hover:bg-gray-50">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-0 right-0 w-4 h-4 bg-black text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-[#F5F5F5] translate-x-1 -translate-y-1">
-                2
-              </span>
-            </Button>
+            {/* Search Box (UI only) */}
+            <div className="relative flex-1 max-w-sm">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search sites, settings..."
+                className="w-full pl-9 pr-4 py-2 text-sm bg-white border border-gray-200 rounded-xl outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-300 transition-all placeholder:text-gray-400"
+              />
+            </div>
 
-            {/* Settings */}
-            <Button variant="ghost" size="icon" className="text-gray-500 hover:text-black rounded-full bg-white border border-gray-200 hover:bg-gray-50">
-              <Settings className="w-5 h-5" />
-            </Button>
+            {/* Right side icons */}
+            <div className="flex items-center gap-3">
+              {/* Notification Bell */}
+              <Button variant="ghost" size="icon" className="relative text-gray-500 hover:text-black rounded-full bg-white border border-gray-200 hover:bg-gray-50">
+                <Bell className="w-5 h-5" />
+                <span className="absolute top-0 right-0 w-4 h-4 bg-black text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-[#F5F5F5] translate-x-1 -translate-y-1">
+                  2
+                </span>
+              </Button>
+
+              {/* Settings */}
+              <Button variant="ghost" size="icon" className="text-gray-500 hover:text-black rounded-full bg-white border border-gray-200 hover:bg-gray-50">
+                <Settings className="w-5 h-5" />
+              </Button>
+            </div>
 
           </div>
+        </div>
+
+        <div className="p-6 pt-4 max-w-7xl mx-auto space-y-4">
 
           {activeTab === "dashboard" && (
             <>
@@ -1252,37 +1269,40 @@ function Options() {
 
               {/* 3-COLUMN KPI GRID (Glassmorphism) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-                <Card className="p-5 bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 rounded-2xl">
-                  <div className="flex items-start justify-between mb-3">
+                <Card className="p-5 bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
+                  <Unlock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 pointer-events-none" />
+                  <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 border border-gray-200">
                       <Unlock className="w-5 h-5 text-black" />
                     </div>
                   </div>
-                  <div>
+                  <div className="relative z-10">
                     <p className="text-xs font-medium text-gray-400 mb-1 uppercase tracking-wider">Today's Unlocks</p>
                     <NumberTicker value={todayUnlocks} className="!text-3xl text-black font-sans" />
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 rounded-2xl">
-                  <div className="flex items-start justify-between mb-3">
+                <Card className="p-5 bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
+                  <Lock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 pointer-events-none" />
+                  <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 border border-gray-200">
                       <Lock className="w-5 h-5 text-black" />
                     </div>
                   </div>
-                  <div>
+                  <div className="relative z-10">
                     <p className="text-xs font-medium text-gray-400 mb-1 uppercase tracking-wider">Sites Locked</p>
                     <div className="text-3xl font-bold text-black leading-none">{lockedCount}</div>
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 rounded-2xl">
-                  <div className="flex items-start justify-between mb-3">
+                <Card className="p-5 bg-white border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
+                  <Globe className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 pointer-events-none" />
+                  <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 border border-gray-200">
                       <Globe className="w-5 h-5 text-black" />
                     </div>
                   </div>
-                  <div>
+                  <div className="relative z-10">
                     <p className="text-xs font-medium text-gray-400 mb-1 uppercase tracking-wider">Sites Unlocked</p>
                     <div className="text-3xl font-bold text-black leading-none">{unlockedCount}</div>
                   </div>
