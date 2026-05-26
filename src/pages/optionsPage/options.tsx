@@ -769,10 +769,14 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
 
         <div className="space-y-4">
           {scheduledLocks.length > 0 ? (
-            scheduledLocks.map((schedule) => (
+            scheduledLocks.map((schedule, index) => (
               <div
                 key={schedule.id}
-                className="p-5 rounded-xl bg-gray-50 border border-gray-200 hover:bg-white hover:border-gray-300 transition-all duration-200"
+                className={`p-5 rounded-xl border transition-all duration-200 ${
+                  index % 2 === 0
+                    ? "bg-gray-100 border-gray-200"
+                    : "bg-white border-gray-200"
+                } hover:bg-gray-200 hover:border-gray-300`}
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1 min-w-0">
@@ -1074,7 +1078,11 @@ const Analytics = ({ sites }) => {
               .map((site, index) => (
                 <div
                   key={site.id}
-                  className="flex items-center justify-between p-3.5 rounded-xl bg-gray-50 border border-gray-200 hover:bg-white hover:border-gray-300 transition-colors"
+                  className={`flex items-center justify-between p-3.5 rounded-xl border transition-colors ${
+                    index % 2 === 0
+                      ? "bg-gray-100 border-gray-200"
+                      : "bg-white border-gray-200"
+                  } hover:bg-gray-200 hover:border-gray-300`}
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-black text-white text-xs font-bold">
@@ -1141,6 +1149,7 @@ const Analytics = ({ sites }) => {
                   {sites.slice(0, 6).map((entry, index) => (
                     <Cell 
                       key={`bar-cell-${index}`} 
+                      fill={index % 2 === 0 ? "#000000" : "#1F2937"}
                       className="transition-all duration-300 cursor-pointer" 
                     />
                   ))}
