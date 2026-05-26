@@ -500,8 +500,9 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
   return (
     <div className="space-y-6">
       {/* Create New Schedule */}
-      <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
-        <h3 className="text-lg font-semibold text-black mb-6 flex items-center gap-2">
+      <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm relative overflow-hidden">
+        <Clock className="absolute -right-12 -top-20 w-60 h-60 text-gray-400 opacity-[0.18] pointer-events-none z-0" />
+        <h3 className="text-lg font-semibold text-black mb-6 flex items-center gap-2 relative z-10">
           <Timer className="w-5 h-5 text-black" />
           Create Schedule Lock
         </h3>
@@ -512,7 +513,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
             Schedule Name (Optional)
           </label>
           <div className="relative">
-            <Tag className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            <Tag className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
             <input
               type="text"
               value={scheduleName}
@@ -557,7 +558,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
           {showAddSite && (
             <div className="mb-4 flex gap-2">
               <div className="relative flex-grow">
-                <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
                 <input
                   type="text"
                   value={newSiteUrl}
@@ -586,7 +587,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
             <div>
               {/* Search Filter for Sites */}
               <div className="relative mb-3">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Search sites to lock..."
@@ -661,7 +662,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
               Start Time
             </label>
             <div className="relative">
-              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
               <input
                 type="time"
                 value={startTime}
@@ -675,7 +676,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
               End Time
             </label>
             <div className="relative">
-              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
               <input
                 type="time"
                 value={endTime}
