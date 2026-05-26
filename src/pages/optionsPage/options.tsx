@@ -1367,6 +1367,16 @@ function Options() {
             <>
               {/* HERO BANNER */}
               <div className="rounded-2xl p-6 mb-5 relative overflow-hidden border border-gray-200 bg-white shadow-sm">
+                {/* Fading Grid Background */}
+                <div 
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: 'linear-gradient(to right, rgba(156, 163, 175, 0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(156, 163, 175, 0.35) 1px, transparent 1px)',
+                    backgroundSize: '20px 20px',
+                    WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%)',
+                    maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%)',
+                  }}
+                />
                 {/* Decorative oversized Shield watermark */}
                 <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 opacity-50 pointer-events-none" />
                 <div className="relative z-10 flex flex-col justify-center">
@@ -1468,14 +1478,20 @@ function Options() {
                       {/* CHANGED: Swapped space-y-3 for a CSS Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow">
                         {currentSites.length > 0 ? (
-                          currentSites.map((site) => (
+                          currentSites.map((site, index) => (
                             <div
                               key={site.id}
-                              className="flex flex-col p-5 rounded-2xl border hover:border-gray-300 transition-all group relative bg-white border-gray-200 hover:shadow-sm"
+                              className={`flex flex-col p-5 rounded-2xl border hover:border-gray-300 transition-all group relative hover:shadow-sm ${
+                                index % 2 === 0
+                                  ? "bg-gray-100 border-gray-200"
+                                  : "bg-white border-gray-200"
+                              }`}
                             >
                               {/* Top row: Icon and absolute positioned Trash */}
                               <div className="flex justify-between items-start mb-4">
-                                <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-2xl flex-shrink-0 border border-gray-200">
+                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 border border-gray-200 ${
+                                  index % 2 === 0 ? "bg-white" : "bg-gray-100"
+                                }`}>
                                   {site.icon}
                                 </div>
                                 <Button
@@ -1581,21 +1597,21 @@ function Options() {
 
                   <Card className="p-6 bg-white border border-gray-200 hover:border-gray-300 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <h3 className="text-lg font-semibold text-black mb-4 tracking-tight">Recent Activity</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3 p-3 rounded-xl border bg-gray-100 border-gray-200 hover:bg-gray-200 hover:border-gray-300 transition-colors">
                         <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-black flex-grow">Unlocked facebook.com</span>
-                        <span className="text-xs text-gray-400">2m</span>
+                        <span className="text-sm text-black font-medium flex-grow">Unlocked facebook.com</span>
+                        <span className="text-xs text-gray-400 font-medium">2m</span>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 p-3 rounded-xl border bg-white border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-colors">
                         <div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-black flex-grow">Locked youtube.com</span>
-                        <span className="text-xs text-gray-400">5m</span>
+                        <span className="text-sm text-black font-medium flex-grow">Locked youtube.com</span>
+                        <span className="text-xs text-gray-400 font-medium">5m</span>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 p-3 rounded-xl border bg-gray-100 border-gray-200 hover:bg-gray-200 hover:border-gray-300 transition-colors">
                         <div className="w-2 h-2 bg-black rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-black flex-grow">Added reddit.com</span>
-                        <span className="text-xs text-gray-400">1h</span>
+                        <span className="text-sm text-black font-medium flex-grow">Added reddit.com</span>
+                        <span className="text-xs text-gray-400 font-medium">1h</span>
                       </div>
                     </div>
                   </Card>
