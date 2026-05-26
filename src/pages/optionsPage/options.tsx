@@ -200,11 +200,11 @@ const hourlyUnlockData = [
 ];
 
 const categoryData = [
-  { name: "Social Media", value: 130, color: "#000000" },
-  { name: "Entertainment", value: 98, color: "#404040" },
-  { name: "Development", value: 20, color: "#808080" },
-  { name: "Professional", value: 15, color: "#B0B0B0" },
-  { name: "Communication", value: 38, color: "#D4D4D4" },
+  { name: "Social Media", value: 130, color: "#3B82F6" }, // Blue
+  { name: "Entertainment", value: 98, color: "#EF4444" }, // Red
+  { name: "Development", value: 20, color: "#10B981" }, // Green
+  { name: "Professional", value: 15, color: "#F59E0B" }, // Orange
+  { name: "Communication", value: 38, color: "#8B5CF6" }, // Purple
 ];
 
 // Number Ticker Component
