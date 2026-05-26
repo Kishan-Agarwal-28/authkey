@@ -26,6 +26,8 @@ import {
   Cell,
   AreaChart,
   Area,
+  RadialBarChart,
+  RadialBar,
 } from "recharts";
 import {
   Lock,
@@ -200,11 +202,11 @@ const hourlyUnlockData = [
 ];
 
 const categoryData = [
-  { name: "Social Media", value: 130, color: "#3B82F6" }, // Blue
-  { name: "Entertainment", value: 98, color: "#EF4444" }, // Red
+  { name: "Communication", value: 38, color: "#8B5CF6" }, // Purple (Innermost)
+  { name: "Professional", value: 15, color: "#F59E0B" }, // Yellow
   { name: "Development", value: 20, color: "#10B981" }, // Green
-  { name: "Professional", value: 15, color: "#F59E0B" }, // Orange
-  { name: "Communication", value: 38, color: "#8B5CF6" }, // Purple
+  { name: "Entertainment", value: 98, color: "#EF4444" }, // Red
+  { name: "Social Media", value: 130, color: "#3B82F6" }, // Blue (Outermost)
 ];
 
 // Number Ticker Component
@@ -1130,25 +1132,29 @@ const Analytics = ({ sites }) => {
           </h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={categoryData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={50}
-                  outerRadius={80}
-                  paddingAngle={5}
+              <RadialBarChart
+                cx="50%"
+                cy="50%"
+                innerRadius="20%"
+                outerRadius="95%"
+                barSize={12}
+                data={categoryData}
+                startAngle={90}
+                endAngle={-270}
+              >
+                <RadialBar
+                  minAngle={15}
+                  background={{ fill: "#F3F4F6" }}
+                  clockWise
                   dataKey="value"
-                  stroke="none"
                 >
                   {categoryData.map((entry, index) => (
                     <Cell 
                       key={`cell-${index}`} 
                       fill={entry.color} 
-                      className="transition-all duration-300 outline-none cursor-pointer" 
                     />
                   ))}
-                </Pie>
+                </RadialBar>
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "#FFFFFF",
@@ -1159,19 +1165,25 @@ const Analytics = ({ sites }) => {
                   }}
                   itemStyle={{ color: '#374151' }}
                 />
-              </PieChart>
+              </RadialBarChart>
             </ResponsiveContainer>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3">
-            {categoryData.map((category, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <div
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: category.color }}
-                />
-                <span className="text-sm font-medium text-gray-700">{category.name}</span>
-              </div>
-            ))}
+            {categoryData.map((category, index) => {
+              const totalValue = categoryData.reduce((sum, item) => sum + item.value, 0);
+              const percentage = Math.round((category.value / totalValue) * 100);
+              return (
+                <div key={index} className="flex items-center gap-2">
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: category.color }}
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    {category.name} <span className="font-bold text-black">[{percentage}%]</span>
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </Card>
 
