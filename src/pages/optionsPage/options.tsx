@@ -28,6 +28,7 @@ import {
   Area,
   RadialBarChart,
   RadialBar,
+  ReferenceLine,
 } from "recharts";
 import {
   Lock,
@@ -1039,7 +1040,12 @@ const Analytics = ({ sites }) => {
         </Card>
 
         <Card className="p-6 bg-white border border-gray-200 rounded-2xl shadow-sm relative overflow-hidden">
-          <Award className="absolute -right-8 -bottom-16 w-40 h-40 text-green-600 opacity-15 pointer-events-none" />
+          <div className="absolute -right-8 -bottom-16 w-40 h-40 pointer-events-none z-0">
+            <Award className="w-full h-full text-green-600 opacity-15" />
+            <span className="absolute text-green-600 opacity-15 text-5xl font-extrabold top-[33%] left-[50%] -translate-x-1/2 -translate-y-1/2 font-sans select-none">
+              1
+            </span>
+          </div>
           <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 mb-1 uppercase tracking-wider">Challenges Completed</p>
@@ -1232,6 +1238,7 @@ const Analytics = ({ sites }) => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sites.slice(0, 6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
+                <ReferenceLine y={90} stroke="#E5E7EB" strokeDasharray="3 3" />
                 <XAxis
                   dataKey="url"
                   stroke="#9CA3AF"
@@ -1249,6 +1256,8 @@ const Analytics = ({ sites }) => {
                   tick={{ fill: '#6B7280' }}
                   axisLine={false}
                   tickLine={false}
+                  ticks={[0, 30, 60, 90, 120]}
+                  domain={[0, 120]}
                 />
                 <Tooltip
                   cursor={{ fill: '#F3F4F6', opacity: 0.8 }}
