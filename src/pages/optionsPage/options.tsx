@@ -347,6 +347,131 @@ const REPEAT_OPTIONS = [
   { id: "custom", label: "Custom Days" },
 ];
 
+const parseTimeTo12Hour = (timeString: string) => {
+  if (!timeString) return { hour: "12", minute: "00", period: "AM" };
+  const [h24, min] = timeString.split(":");
+  let h12 = parseInt(h24, 10);
+  const period = h12 >= 12 ? "PM" : "AM";
+  h12 = h12 % 12;
+  if (h12 === 0) h12 = 12;
+  return {
+    hour: h12.toString().padStart(2, "0"),
+    minute: min || "00",
+    period,
+  };
+};
+
+const formatTimeFrom12Hour = (hour: string, minute: string, period: string) => {
+  let h = parseInt(hour, 10);
+  if (period === "PM" && h < 12) h += 12;
+  if (period === "AM" && h === 12) h = 0;
+  return `${h.toString().padStart(2, "0")}:${minute}`;
+};
+
+const TimePickerInput = ({ 
+  label, 
+  value, 
+  onChange 
+}: { 
+  label: string; 
+  value: string; 
+  onChange: (val: string) => void; 
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { hour, minute, period } = parseTimeTo12Hour(value);
+
+  const hoursList = Array.from({ length: 12 }, (_, i) => (i + 1).toString().padStart(2, "0"));
+  const minutesList = Array.from({ length: 12 }, (_, i) => (i * 5).toString().padStart(2, "0"));
+  const periodsList = ["AM", "PM"];
+
+  const handleSelect = (newHour: string, newMinute: string, newPeriod: string) => {
+    onChange(formatTimeFrom12Hour(newHour, newMinute, newPeriod));
+  };
+
+  return (
+    <div className="relative">
+      <label className="text-sm font-medium text-gray-500 mb-2 block uppercase tracking-wider">
+        {label}
+      </label>
+      <div 
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black cursor-pointer flex items-center justify-between transition-shadow hover:border-gray-400 select-none relative"
+      >
+        <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
+        <span>{value ? `${hour}:${minute} ${period}` : "--:-- --"}</span>
+        <ChevronDown className="w-4 h-4 text-gray-500" />
+      </div>
+
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+          <div className="absolute top-full left-0 z-50 mt-1 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-3 flex gap-2 h-56">
+            {/* Hours Column */}
+            <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-200">
+              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white py-1">Hour</div>
+              <div className="space-y-1">
+                {hoursList.map((h) => (
+                  <button
+                    key={h}
+                    onClick={() => handleSelect(h, minute, period)}
+                    className={`w-full py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
+                      h === hour
+                        ? "bg-black text-white"
+                        : "text-black hover:bg-gray-100"
+                    }`}
+                  >
+                    {h}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Minutes Column */}
+            <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-200 border-l border-r border-gray-100 px-1">
+              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white py-1">Min</div>
+              <div className="space-y-1">
+                {minutesList.map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => handleSelect(hour, m, period)}
+                    className={`w-full py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
+                      m === minute
+                        ? "bg-black text-white"
+                        : "text-black hover:bg-gray-100"
+                    }`}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Period Column */}
+            <div className="flex-1 overflow-y-auto pr-1">
+              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white py-1">AM/PM</div>
+              <div className="space-y-1">
+                {periodsList.map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => handleSelect(hour, minute, p)}
+                    className={`w-full py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
+                      p === period
+                        ? "bg-black text-white"
+                        : "text-black hover:bg-gray-100"
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 interface ScheduleLockProps {
   sites: Site[];
 }
@@ -602,7 +727,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                   .filter((site) =>
                     site.url.toLowerCase().includes(siteSearchQuery.toLowerCase())
                   )
-                  .map((site) => {
+                  .map((site, index) => {
                     const isSelected = selectedSites.includes(site.id);
                     return (
                       <button
@@ -611,7 +736,9 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                         className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                           isSelected
                             ? "bg-black border-black text-white shadow-sm"
-                            : "bg-white border-gray-200 text-black hover:bg-gray-50 hover:border-gray-300"
+                            : index % 2 === 0
+                            ? "bg-gray-100 border-gray-200 text-black hover:bg-gray-200"
+                            : "bg-white border-gray-200 text-black hover:bg-gray-50"
                         }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
@@ -657,34 +784,16 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
 
         {/* Time Selection */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          <div>
-            <label className="text-sm font-medium text-gray-500 mb-2 block uppercase tracking-wider">
-              Start Time
-            </label>
-            <div className="relative">
-              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
-              <input
-                type="time"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black [color-scheme:light]"
-              />
-            </div>
-          </div>
-          <div>
-            <label className="text-sm font-medium text-gray-500 mb-2 block uppercase tracking-wider">
-              End Time
-            </label>
-            <div className="relative">
-              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 pointer-events-none" />
-              <input
-                type="time"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black [color-scheme:light]"
-              />
-            </div>
-          </div>
+          <TimePickerInput
+            label="Start Time"
+            value={startTime}
+            onChange={setStartTime}
+          />
+          <TimePickerInput
+            label="End Time"
+            value={endTime}
+            onChange={setEndTime}
+          />
         </div>
 
         {/* Repeat Options */}
@@ -1150,7 +1259,7 @@ const Analytics = ({ sites }) => {
                   {sites.slice(0, 6).map((entry, index) => (
                     <Cell 
                       key={`bar-cell-${index}`} 
-                      fill={index % 2 === 0 ? "#000000" : "#1F2937"}
+                      fill={index % 2 === 0 ? "#000000" : "#374151"}
                       className="transition-all duration-300 cursor-pointer" 
                     />
                   ))}
