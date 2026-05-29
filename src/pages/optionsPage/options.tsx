@@ -1398,27 +1398,27 @@ function Options() {
 
       {/* LEFT SIDEBAR */}
       <aside 
-        className={`relative z-10 transition-all duration-300 ease-in-out flex flex-col border-r border-gray-800 dark:border-gray-300 bg-black dark:bg-[#E5E7EB] ${
+        className={`relative z-10 transition-all duration-300 ease-in-out flex flex-col border-r border-gray-800 dark:border-[#2A2A2A] bg-black dark:bg-[#1A1A1A] ${
           isSidebarCollapsed ? "w-20" : "w-52"
         }`}
       >
      
         {/* Logo Area */}
-        <div className={`h-20 flex items-center border-b border-gray-800 dark:border-gray-300 ${isSidebarCollapsed ? 'justify-center' : 'justify-start px-6'}`}>
+        <div className={`h-20 flex items-center border-b border-gray-800 dark:border-[#2A2A2A] ${isSidebarCollapsed ? 'justify-center' : 'justify-start px-6'}`}>
           <div className="flex items-center gap-3">
             <button 
               onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-              className="p-2 rounded-lg bg-white dark:bg-black flex-shrink-0 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-white dark:focus:ring-black cursor-pointer"
+              className="p-2 rounded-lg bg-white dark:bg-[#252525] flex-shrink-0 hover:bg-gray-200 dark:hover:bg-[#333333] transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
               title="Toggle Sidebar"
             >
               <Shield className="w-6 h-6 text-black dark:text-white" />
             </button>
             {!isSidebarCollapsed && (
               <div>
-                <h1 className="text-xl font-bold text-white dark:text-black whitespace-nowrap tracking-tight">
+                <h1 className="text-xl font-bold text-white whitespace-nowrap tracking-tight">
                   AuthKey
                 </h1>
-                <p className="text-[10px] text-gray-500 dark:text-gray-600 uppercase tracking-widest">Security Portal</p>
+                <p className="text-[10px] text-gray-500 uppercase tracking-widest">Security Portal</p>
               </div>
             )}
           </div>
@@ -1426,7 +1426,7 @@ function Options() {
 
         {/* Navigation Links */}
         <div className="flex-1 py-6 px-4 space-y-1 overflow-y-auto">
-          <p className={`text-[10px] font-semibold text-gray-500 dark:text-gray-600 mb-4 px-2 uppercase tracking-widest ${isSidebarCollapsed ? 'hidden' : 'block'}`}>
+          <p className={`text-[10px] font-semibold text-gray-500 mb-4 px-2 uppercase tracking-widest ${isSidebarCollapsed ? 'hidden' : 'block'}`}>
             Pages
           </p>
           {[
@@ -1440,8 +1440,8 @@ function Options() {
               onClick={() => setActiveTab(tab.id)}
               className={`w-full flex items-center ${isSidebarCollapsed ? 'justify-center px-0' : 'justify-start px-4'} py-6 rounded-xl transition-all ${
                 activeTab === tab.id
-                  ? "bg-white dark:bg-black text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-900"
-                  : "text-gray-400 dark:text-gray-600 hover:text-white dark:hover:text-black hover:bg-gray-800 dark:hover:bg-gray-300 border border-transparent"
+                  ? "bg-white text-black hover:bg-gray-100"
+                  : "text-gray-400 hover:text-white hover:bg-gray-800/60 border border-transparent"
               }`}
               title={isSidebarCollapsed ? tab.label : undefined}
             >
