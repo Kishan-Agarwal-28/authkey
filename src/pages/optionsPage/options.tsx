@@ -1113,7 +1113,7 @@ const Analytics = ({ sites }) => {
                     <stop offset="100%" stopColor={isDark ? "#FFFFFF" : "#000000"} stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#2A2A2A" : "#E5E7EB"} vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "rgba(255, 255, 255, 0.15)" : "#E5E7EB"} vertical={false} />
                 <XAxis
                   dataKey={timeRange === "day" ? "hour" : "day"}
                   stroke="#9CA3AF"
@@ -1240,8 +1240,8 @@ const Analytics = ({ sites }) => {
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sites.slice(0, 6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#2A2A2A" : "#E5E7EB"} vertical={false} />
-                <ReferenceLine y={90} stroke={isDark ? "#4B5563" : "#E5E7EB"} strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "rgba(255, 255, 255, 0.15)" : "#E5E7EB"} vertical={false} />
+                <ReferenceLine y={90} stroke={isDark ? "rgba(255, 255, 255, 0.15)" : "#E5E7EB"} strokeDasharray="3 3" />
                 <XAxis
                   dataKey="url"
                   stroke="#9CA3AF"
@@ -1508,7 +1508,7 @@ function Options() {
                   }}
                 />
                 {/* Decorative oversized Shield watermark */}
-                <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 dark:text-gray-200 opacity-40 dark:opacity-20 pointer-events-none" />
+                <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 opacity-40 pointer-events-none" />
                 <div className="relative z-10 flex flex-col justify-center">
                   <h2 className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1 flex items-center gap-2 tracking-tight">
                     👋 Hello Swarnabh,
