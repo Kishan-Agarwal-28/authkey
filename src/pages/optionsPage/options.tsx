@@ -420,8 +420,8 @@ const TimePickerInput = ({
                     onClick={() => handleSelect(h, minute, period)}
                     className={`w-full py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
                       h === hour
-                        ? "bg-black dark:bg-white dark:bg-[#1A1A1A] text-white dark:text-black dark:text-white"
-                        : "text-black dark:text-white hover:bg-gray-100 dark:hover:bg-[#2A2A2A] dark:bg-[#252525] dark:hover:bg-[#252525]"
+                        ? "bg-black dark:bg-white text-white dark:text-black"
+                        : "text-black dark:text-white bg-transparent dark:bg-[#252525] hover:bg-gray-100 dark:hover:bg-[#333333]"
                     }`}
                   >
                     {h}
@@ -440,8 +440,8 @@ const TimePickerInput = ({
                     onClick={() => handleSelect(hour, m, period)}
                     className={`w-full py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
                       m === minute
-                        ? "bg-black dark:bg-white dark:bg-[#1A1A1A] text-white dark:text-black dark:text-white"
-                        : "text-black dark:text-white hover:bg-gray-100 dark:hover:bg-[#2A2A2A] dark:bg-[#252525] dark:hover:bg-[#252525]"
+                        ? "bg-black dark:bg-white text-white dark:text-black"
+                        : "text-black dark:text-white bg-transparent dark:bg-[#252525] hover:bg-gray-100 dark:hover:bg-[#333333]"
                     }`}
                   >
                     {m}
@@ -460,8 +460,8 @@ const TimePickerInput = ({
                     onClick={() => handleSelect(hour, minute, p)}
                     className={`w-full py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
                       p === period
-                        ? "bg-black dark:bg-white dark:bg-[#1A1A1A] text-white dark:text-black dark:text-white"
-                        : "text-black dark:text-white hover:bg-gray-100 dark:hover:bg-[#2A2A2A] dark:bg-[#252525] dark:hover:bg-[#252525]"
+                        ? "bg-black dark:bg-white text-white dark:text-black"
+                        : "text-black dark:text-white bg-transparent dark:bg-[#252525] hover:bg-gray-100 dark:hover:bg-[#333333]"
                     }`}
                   >
                     {p}
