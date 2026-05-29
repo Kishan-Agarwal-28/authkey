@@ -1518,7 +1518,7 @@ function Options() {
                     track your lock progress, and gain valuable privacy insights.
                   </p>
                   <div>
-                    <Button size="sm" className="bg-black dark:bg-white dark:bg-[#1A1A1A] text-white dark:text-black dark:text-white hover:bg-gray-900 dark:hover:bg-gray-100 dark:hover:bg-[#2A2A2A] dark:bg-[#252525] font-medium px-4 h-8 text-xs transition-all rounded-lg">
+                    <Button size="sm" className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-900 dark:hover:bg-gray-100 font-medium px-4 h-8 text-xs transition-all rounded-lg">
                       Quick Review
                     </Button>
                   </div>
