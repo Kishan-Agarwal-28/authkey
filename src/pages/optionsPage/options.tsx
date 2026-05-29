@@ -1277,7 +1277,7 @@ const Analytics = ({ sites }) => {
                   {sites.slice(0, 6).map((entry, index) => (
                     <Cell 
                       key={`bar-cell-${index}`} 
-                      fill={isDark ? (index % 2 === 0 ? "#E5E7EB" : "#4B5563") : (index % 2 === 0 ? "#000000" : "#374151")}
+                      fill={isDark ? (index % 2 === 0 ? "#FFFFFF" : "#6B7280") : (index % 2 === 0 ? "#000000" : "#374151")}
                       className="transition-all duration-300 cursor-pointer" 
                     />
                   ))}
