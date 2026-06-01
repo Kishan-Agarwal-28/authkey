@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -8,12 +8,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+
 } from "@/components/ui/dialog";
 import { ThemeProvider, useTheme } from "@/components/ui/theme-provider";
 import {
-  LineChart,
-  Line,
+
   XAxis,
   YAxis,
   CartesianGrid,
@@ -21,8 +20,6 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  PieChart,
-  Pie,
   Cell,
   AreaChart,
   Area,
@@ -64,7 +61,7 @@ import {
   Check,
   Tag,
 } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+
 import { createRoot } from "react-dom/client";
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ui/mode-toggle";
@@ -1019,7 +1016,7 @@ const Analytics = ({ sites }) => {
       {/* Streak Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm relative overflow-hidden">
-          <Flame className="absolute -right-8 -bottom-16 w-40 h-40 text-orange-500 opacity-25 dark:opacity-35 pointer-events-none" />
+          <Flame className="absolute -right-8 -bottom-16 w-40 h-40 text-orange-500 opacity-25 dark:opacity-10 pointer-events-none" />
           <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wider">Current Streak</p>
@@ -1040,7 +1037,7 @@ const Analytics = ({ sites }) => {
         </Card>
 
         <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm relative overflow-hidden">
-          <Trophy className="absolute -right-9 -bottom-16 w-40 h-40 text-yellow-500 opacity-25 dark:opacity-35 pointer-events-none" />
+          <Trophy className="absolute -right-9 -bottom-16 w-40 h-40 text-yellow-500 opacity-25 dark:opacity-10 pointer-events-none" />
           <div className="relative z-10 flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wider">Longest Streak</p>
@@ -1056,8 +1053,8 @@ const Analytics = ({ sites }) => {
 
         <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm relative overflow-hidden">
           <div className="absolute -right-8 -bottom-16 w-40 h-40 pointer-events-none z-0">
-            <Award className="w-full h-full text-green-600 opacity-25 dark:opacity-35" />
-            <span className="absolute text-green-600 opacity-25 dark:opacity-35 text-5xl font-extrabold top-[33%] left-[50%] -translate-x-1/2 -translate-y-1/2 font-sans select-none">
+            <Award className="w-full h-full text-green-600 opacity-25 dark:opacity-10" />
+            <span className="absolute text-green-600 opacity-25 dark:opacity-10 text-5xl font-extrabold top-[33%] left-[50%] -translate-x-1/2 -translate-y-1/2 font-sans select-none">
               1
             </span>
           </div>
@@ -1508,7 +1505,7 @@ function Options() {
                   }}
                 />
                 {/* Decorative oversized Shield watermark */}
-                <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 opacity-40 pointer-events-none" />
+                <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                 <div className="relative z-10 flex flex-col justify-center">
                   <h2 className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1 flex items-center gap-2 tracking-tight">
                     👋 Hello Swarnabh,
@@ -1528,7 +1525,7 @@ function Options() {
               {/* 3-COLUMN KPI GRID (Glassmorphism) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
                 <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] dark:hover:border-gray-700 hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
-                  <Unlock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 pointer-events-none" />
+                  <Unlock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                   <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-[#252525] border border-gray-200 dark:border-[#2A2A2A]">
                       <Unlock className="w-5 h-5 text-black dark:text-white" />
@@ -1541,7 +1538,7 @@ function Options() {
                 </Card>
 
                 <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
-                  <Lock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 pointer-events-none" />
+                  <Lock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                   <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-[#252525] border border-gray-200 dark:border-[#2A2A2A]">
                       <Lock className="w-5 h-5 text-black dark:text-white" />
@@ -1554,7 +1551,7 @@ function Options() {
                 </Card>
 
                 <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
-                  <Globe className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 pointer-events-none" />
+                  <Globe className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                   <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-[#252525] border border-gray-200 dark:border-[#2A2A2A]">
                       <Globe className="w-5 h-5 text-black dark:text-white" />
