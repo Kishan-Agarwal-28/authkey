@@ -171,7 +171,7 @@ export const registerUser = async (userId: string): Promise<{ success: boolean; 
       success: true, 
       message: 'WebAuthn registration successful!' 
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Registration error:', error);
     return { 
       success: false, 
@@ -345,7 +345,7 @@ export const authenticateUser = async (userId: string): Promise<{ success: boole
         success: true, 
         message: 'Authentication successful!' 
       };
-    } catch (verifyError) {
+    } catch (verifyError: unknown) {
       console.error('Verification error:', {
         error: verifyError,
         clientData: assertion.response.clientDataJSON ? 
@@ -357,7 +357,7 @@ export const authenticateUser = async (userId: string): Promise<{ success: boole
       });
       throw verifyError;
     }
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Authentication error:', error);
     return { 
       success: false, 
