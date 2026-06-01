@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
@@ -67,8 +67,18 @@ import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import "@/index.css";
 
+interface Site {
+  id: number;
+  url: string;
+  icon: string;
+  isLocked: boolean;
+  category: string;
+  unlockCount: number;
+  avgLockDuration: number;
+}
+
 // Mock data for demonstration
-const mockLockedSites = [
+const mockLockedSites: Site[] = [
   {
     id: 1,
     url: "facebook.com",
@@ -209,7 +219,7 @@ const categoryData = [
 ];
 
 // Number Ticker Component
-const NumberTicker = ({ value, className = "" }) => {
+const NumberTicker = ({ value, className = "" }: { value: number | string; className?: string }) => {
   return (
     <div
       className={`font-sans text-2xl sm:text-4xl font-bold text-black dark:text-white tracking-tight ${className}`}
@@ -223,7 +233,7 @@ const NumberTicker = ({ value, className = "" }) => {
 
 
 // Login Component
-const LoginScreen = ({ onLogin }) => {
+const LoginScreen = ({ onLogin }: { onLogin: () => void }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
@@ -271,7 +281,17 @@ const LoginScreen = ({ onLogin }) => {
 };
 
 // Confirmation Modal Component
-const ConfirmationModal = ({ isOpen, onClose, onConfirm, siteName }) => {
+const ConfirmationModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  siteName,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  siteName: string;
+}) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white max-w-md rounded-2xl shadow-lg">
@@ -977,13 +997,13 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
 }
 // Analytics Component
 
-const Analytics = ({ sites }) => {
+const Analytics = ({ sites }: { sites: Site[] }) => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const [timeRange, setTimeRange] = useState("week");
-  const [currentStreak, setCurrentStreak] = useState(12);
-  const [longestStreak, setLongestStreak] = useState(28);
-  const [totalChallengesCompleted, setTotalChallengesCompleted] = useState(45);
+  const [currentStreak] = useState(12);
+  const [longestStreak] = useState(28);
+  const [totalChallengesCompleted] = useState(45);
 
   const dimColor = (color: string) => {
     if (!isDark) return color;
@@ -1155,6 +1175,7 @@ const Analytics = ({ sites }) => {
                 endAngle={-270}
               >
                 <RadialBar
+                  // @ts-expect-error minAngle is valid at runtime but missing in standard Recharts typings
                   minAngle={15}
                   background={{ fill: isDark ? "#252525" : "#F3F4F6" }}
                   clockWise
@@ -1271,7 +1292,7 @@ const Analytics = ({ sites }) => {
                   radius={[6, 6, 0, 0]}
                   barSize={40}
                 >
-                  {sites.slice(0, 6).map((entry, index) => (
+                  {sites.slice(0, 6).map((_entry, index) => (
                     <Cell 
                       key={`bar-cell-${index}`} 
                       fill={isDark ? (index % 2 === 0 ? "#FFFFFF" : "#6B7280") : (index % 2 === 0 ? "#000000" : "#374151")}
@@ -1325,7 +1346,11 @@ function Options() {
   const [showAddSite, setShowAddSite] = useState(false);
   const [newSiteUrl, setNewSiteUrl] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [confirmModal, setConfirmModal] = useState({
+  const [confirmModal, setConfirmModal] = useState<{
+    isOpen: boolean;
+    siteId: number | null;
+    siteName: string;
+  }>({
     isOpen: false,
     siteId: null,
     siteName: "",
@@ -1335,7 +1360,7 @@ function Options() {
 
   const sitesPerPage = 6;
 
-  const toggleSiteLock = (id) => {
+  const toggleSiteLock = (id: number) => {
     setSites(
       sites.map((site) =>
         site.id === id ? { ...site, isLocked: !site.isLocked } : site
@@ -1343,7 +1368,7 @@ function Options() {
     );
   };
 
-  const openConfirmModal = (id, siteName) => {
+  const openConfirmModal = (id: number, siteName: string) => {
     setConfirmModal({ isOpen: true, siteId: id, siteName });
   };
 
@@ -1381,7 +1406,7 @@ function Options() {
   const endIndex = startIndex + sitesPerPage;
   const currentSites = sites.slice(startIndex, endIndex);
 
-  const goToPage = (page) => {
+  const goToPage = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
 
