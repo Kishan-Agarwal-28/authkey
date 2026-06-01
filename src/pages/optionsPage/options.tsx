@@ -243,7 +243,7 @@ const LoginScreen = ({ onLogin }) => {
               <Shield className="w-8 h-8 text-white dark:text-black dark:text-white" />
             </div>
             <h1 className="text-3xl font-bold text-black dark:text-white mb-2 tracking-tight">AuthKey</h1>
-            <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 text-sm">
+            <p className="text-gray-500 dark:text-gray-400 text-sm">
               A simple extension to manage your privacy
             </p>
           </div>
@@ -280,7 +280,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, siteName }) => {
             <AlertTriangle className="w-5 h-5" />
             Confirm Removal
           </DialogTitle>
-          <DialogDescription className="text-gray-600 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400">
+          <DialogDescription className="text-gray-600 dark:text-gray-400">
             Are you sure you want to remove{" "}
             <span className="font-semibold text-black dark:text-white">{siteName}</span> from
             your managed sites? This action cannot be undone.
@@ -391,16 +391,16 @@ const TimePickerInput = ({
 
   return (
     <div className="relative">
-      <label className="text-sm font-medium text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 mb-2 block uppercase tracking-wider">
+      <label className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 block uppercase tracking-wider">
         {label}
       </label>
       <div 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white cursor-pointer flex items-center justify-between transition-shadow hover:border-gray-400 dark:hover:border-gray-500 select-none relative"
+        className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white focus:outline-hidden focus:ring-2 focus:ring-black dark:focus:ring-white cursor-pointer flex items-center justify-between transition-shadow hover:border-gray-400 dark:hover:border-gray-500 select-none relative"
       >
         <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 dark:text-gray-200 pointer-events-none" />
         <span>{value ? `${hour}:${minute} ${period}` : "--:-- --"}</span>
-        <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400" />
+        <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
       </div>
 
       {isOpen && (
@@ -409,7 +409,7 @@ const TimePickerInput = ({
           <div className="absolute top-full left-0 z-50 mt-1 w-64 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] rounded-xl shadow-lg p-3 flex gap-2 h-56">
             {/* Hours Column */}
             <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800">
-              <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">Hour</div>
+              <div className="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">Hour</div>
               <div className="space-y-1">
                 {hoursList.map((h) => (
                   <button
@@ -429,7 +429,7 @@ const TimePickerInput = ({
 
             {/* Minutes Column */}
             <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800 border-l border-r border-gray-100 dark:border-[#2A2A2A] px-1">
-              <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">Min</div>
+              <div className="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">Min</div>
               <div className="space-y-1">
                 {minutesList.map((m) => (
                   <button
@@ -449,7 +449,7 @@ const TimePickerInput = ({
 
             {/* Period Column */}
             <div className="flex-1 overflow-y-auto pr-1">
-              <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">AM/PM</div>
+              <div className="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">AM/PM</div>
               <div className="space-y-1">
                 {periodsList.map((p) => (
                   <button
@@ -627,7 +627,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
     <div className="space-y-6">
       {/* Create New Schedule */}
       <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm relative overflow-hidden">
-        <Clock className="absolute -right-12 -top-20 w-60 h-60 text-gray-400 dark:text-gray-500 dark:text-gray-400 opacity-[0.18] pointer-events-none z-0" />
+        <Clock className="absolute -right-12 -top-20 w-60 h-60 text-gray-400 dark:text-gray-400 opacity-[0.18] pointer-events-none z-0" />
         <h3 className="text-lg font-semibold text-black dark:text-white mb-6 flex items-center gap-2 relative z-10">
           <Timer className="w-5 h-5 text-black dark:text-white" />
           Create Schedule Lock
@@ -645,7 +645,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
               value={scheduleName}
               onChange={(e) => setScheduleName(e.target.value)}
               placeholder="e.g., Work Focus, Sleep Time, Study Hours"
-              className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black transition-shadow"
+              className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder:text-gray-400 focus:outline-hidden focus:ring-2 focus:ring-black transition-shadow"
             />
           </div>
         </div>
@@ -683,7 +683,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
 
           {showAddSite && (
             <div className="mb-4 flex gap-2">
-              <div className="relative flex-grow">
+              <div className="relative grow">
                 <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-800 dark:text-gray-200 pointer-events-none" />
                 <input
                   type="text"
@@ -696,7 +696,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                     }
                   }}
                   placeholder="Enter website URL (e.g., twitter.com)"
-                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder:text-gray-400 focus:outline-hidden focus:ring-2 focus:ring-black"
                 />
               </div>
               <Button
@@ -719,7 +719,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                   placeholder="Search sites to lock..."
                   value={siteSearchQuery}
                   onChange={(e) => setSiteSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 text-sm bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full pl-10 pr-4 py-2 text-sm bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder:text-gray-400 focus:outline-hidden focus:ring-2 focus:ring-black"
                 />
               </div>
 
@@ -743,11 +743,11 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                         }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
-                          <span className="text-xl flex-shrink-0">{site.icon}</span>
+                          <span className="text-xl shrink-0">{site.icon}</span>
                           <span className="truncate text-sm font-medium">{site.url}</span>
                         </div>
                         {isSelected && (
-                          <Check className="w-4 h-4 text-white flex-shrink-0 ml-2" />
+                          <Check className="w-4 h-4 text-white shrink-0 ml-2" />
                         )}
                       </button>
                     );
@@ -857,7 +857,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
           Create Schedule Lock
         </Button>
         {!isFormValid() && (
-          <p className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400 text-center mt-3 font-medium">
+          <p className="text-xs text-gray-400 dark:text-gray-400 text-center mt-3 font-medium">
             {!selectedSites.length && !startTime && !endTime
               ? "Select at least one site and specify start/end times to create a lock"
               : !selectedSites.length
@@ -897,7 +897,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                       </h4>
                       <Badge
                         variant={schedule.isActive ? "default" : "secondary"}
-                        className={`flex-shrink-0 ${schedule.isActive
+                        className={`shrink-0 ${schedule.isActive
                           ? "bg-black dark:bg-white text-white dark:text-black border-black dark:border-white"
                           : "bg-gray-100 dark:bg-[#252525] text-gray-600 dark:text-gray-400 border-gray-300 dark:border-[#333]"
                           }`}
@@ -907,7 +907,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                       {!schedule.canModify && (
                         <Badge
                           variant="outline"
-                          className="text-xs flex-shrink-0 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-900/30"
+                          className="text-xs shrink-0 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 border-red-200 dark:border-red-900/30"
                         >
                           <Lock className="w-3 h-3 mr-1" />
                           Locked
@@ -937,7 +937,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                         variant="ghost"
                         size="icon"
                         onClick={() => removeSchedule(schedule.id)}
-                        className="text-gray-400 dark:text-gray-500 dark:text-gray-400 hover:text-red-600 hover:bg-red-50"
+                        className="text-gray-400 dark:text-gray-400 hover:text-red-600 hover:bg-red-50"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -946,7 +946,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
                 </div>
 
                 <div className="space-y-2 mt-4 pt-4 border-t border-gray-100 dark:border-[#2A2A2A]">
-                  <div className="text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 uppercase tracking-wider">Locked Sites:</div>
+                  <div className="text-xs font-medium text-gray-400 dark:text-gray-400 uppercase tracking-wider">Locked Sites:</div>
                   <div className="flex flex-wrap gap-2">
                     {schedule.sites.map((site, index) => (
                       <Badge
@@ -962,7 +962,7 @@ export function ScheduleLock({ sites: initialSites = [] }: ScheduleLockProps) {
               </div>
             ))
           ) : (
-            <div className="text-center py-12 text-gray-400 dark:text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-[#1F1F1F] rounded-xl border border-dashed border-gray-300 dark:border-[#333]">
+            <div className="text-center py-12 text-gray-400 dark:text-gray-400 bg-gray-50 dark:bg-[#1F1F1F] rounded-xl border border-dashed border-gray-300 dark:border-[#333]">
               <Calendar className="w-12 h-12 mx-auto mb-4 opacity-30" />
               <p className="text-lg font-medium mb-1 text-black dark:text-white">No schedules created yet</p>
               <p className="text-sm">
@@ -1221,7 +1221,7 @@ const Analytics = ({ sites }) => {
                   </div>
                   <div className="text-right">
                     <div className="text-black dark:text-white font-bold">{site.unlockCount}</div>
-                    <div className="text-xs text-gray-400 dark:text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider">Unlocks</div>
+                    <div className="text-xs text-gray-400 dark:text-gray-400 font-medium uppercase tracking-wider">Unlocks</div>
                   </div>
                 </div>
               ))}
@@ -1405,7 +1405,7 @@ function Options() {
           <div className="flex items-center gap-3">
             <button 
               onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-              className="p-2 rounded-lg bg-white dark:bg-[#252525] flex-shrink-0 hover:bg-gray-200 dark:hover:bg-[#333333] transition-colors focus:outline-none focus:ring-2 focus:ring-white cursor-pointer"
+              className="p-2 rounded-lg bg-white dark:bg-[#252525] shrink-0 hover:bg-gray-200 dark:hover:bg-[#333333] transition-colors focus:outline-hidden focus:ring-2 focus:ring-white cursor-pointer"
               title="Toggle Sidebar"
             >
               <Shield className="w-6 h-6 text-black dark:text-white" />
@@ -1458,11 +1458,11 @@ function Options() {
 
             {/* Search Box (UI only) */}
             <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500 dark:text-gray-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-400" />
               <input
                 type="text"
                 placeholder="Search sites, settings..."
-                className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white rounded-xl outline-none focus:border-gray-400 dark:focus:border-gray-500 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-700 transition-all placeholder:text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:placeholder:text-gray-500 dark:text-gray-400"
+                className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white rounded-xl outline-hidden focus:border-gray-400 dark:focus:border-gray-500 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-700 transition-all placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
               />
             </div>
 
@@ -1510,7 +1510,7 @@ function Options() {
                   <h2 className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1 flex items-center gap-2 tracking-tight">
                     👋 Hello Swarnabh,
                   </h2>
-                  <p className="text-gray-500 dark:text-gray-400 dark:text-gray-500 dark:text-gray-400 mb-4 max-w-md text-xs sm:text-sm leading-relaxed">
+                  <p className="text-gray-500 dark:text-gray-400 mb-4 max-w-md text-xs sm:text-sm leading-relaxed">
                     Welcome to your AuthKey Dashboard! Monitor your unlocked sites,
                     track your lock progress, and gain valuable privacy insights.
                   </p>
@@ -1532,7 +1532,7 @@ function Options() {
                     </div>
                   </div>
                   <div className="relative z-10">
-                    <p className="text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wider">Today's Unlocks</p>
+                    <p className="text-xs font-medium text-gray-400 dark:text-gray-400 mb-1 uppercase tracking-wider">Today's Unlocks</p>
                     <NumberTicker value={todayUnlocks} className="!text-3xl text-black dark:text-white font-sans" />
                   </div>
                 </Card>
@@ -1545,7 +1545,7 @@ function Options() {
                     </div>
                   </div>
                   <div className="relative z-10">
-                    <p className="text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wider">Sites Locked</p>
+                    <p className="text-xs font-medium text-gray-400 dark:text-gray-400 mb-1 uppercase tracking-wider">Sites Locked</p>
                     <div className="text-3xl font-bold text-black dark:text-white leading-none">{lockedCount}</div>
                   </div>
                 </Card>
@@ -1558,7 +1558,7 @@ function Options() {
                     </div>
                   </div>
                   <div className="relative z-10">
-                    <p className="text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 mb-1 uppercase tracking-wider">Sites Unlocked</p>
+                    <p className="text-xs font-medium text-gray-400 dark:text-gray-400 mb-1 uppercase tracking-wider">Sites Unlocked</p>
                     <div className="text-3xl font-bold text-black dark:text-white leading-none">{unlockedCount}</div>
                   </div>
                 </Card>
@@ -1590,7 +1590,7 @@ function Options() {
                             value={newSiteUrl}
                             onChange={(e) => setNewSiteUrl(e.target.value)}
                             placeholder="Enter website URL (e.g., example.com)"
-                            className="flex-1 px-4 py-2 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
+                            className="flex-1 px-4 py-2 bg-white dark:bg-[#1A1A1A] border border-gray-300 dark:border-[#333] rounded-lg text-black dark:text-white placeholder:text-gray-400 focus:outline-hidden focus:ring-2 focus:ring-black"
                             onKeyPress={(e) => e.key === "Enter" && addNewSite()}
                           />
                           <Button onClick={addNewSite} className="bg-black dark:bg-white hover:bg-gray-900 dark:hover:bg-gray-100 text-white dark:text-black transition-all">
@@ -1603,7 +1603,7 @@ function Options() {
                     {/* Fixed height container for sites */}
                     <div className="min-h-[400px] flex flex-col">
                       {/* CHANGED: Swapped space-y-3 for a CSS Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-grow">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 grow">
                         {currentSites.length > 0 ? (
                           currentSites.map((site, index) => (
                             <div
@@ -1616,7 +1616,7 @@ function Options() {
                             >
                               {/* Top row: Icon and absolute positioned Trash */}
                               <div className="flex justify-between items-start mb-4">
-                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 border border-gray-200 dark:border-[#2A2A2A] ${
+                                <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 border border-gray-200 dark:border-[#2A2A2A] ${
                                   index % 2 === 0 ? "bg-white dark:bg-[#1A1A1A]" : "bg-gray-100 dark:bg-[#252525]"
                                 }`}>
                                   {site.icon}
@@ -1636,7 +1636,7 @@ function Options() {
                                 <div className="font-semibold text-black dark:text-white truncate text-base">
                                   {site.url}
                                 </div>
-                                <div className="text-xs font-medium text-gray-400 dark:text-gray-500 dark:text-gray-400 mt-1">
+                                <div className="text-xs font-medium text-gray-400 dark:text-gray-400 mt-1">
                                   {site.category}
                                 </div>
                               </div>
@@ -1662,7 +1662,7 @@ function Options() {
                             </div>
                           ))
                         ) : (
-                          <div className="col-span-full flex items-center justify-center h-64 text-gray-400 dark:text-gray-500 dark:text-gray-400">
+                          <div className="col-span-full flex items-center justify-center h-64 text-gray-400 dark:text-gray-400">
                             <div className="text-center">
                               <Globe className="w-12 h-12 mx-auto mb-4 opacity-30" />
                               <p className="text-black dark:text-white font-medium">No sites added yet</p>
@@ -1673,7 +1673,7 @@ function Options() {
 
                       {totalPages > 1 && (
                         <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-[#2A2A2A]">
-                          <p className="text-sm text-gray-400 dark:text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-gray-400 dark:text-gray-400">
                             Showing {startIndex + 1}-{Math.min(endIndex, sites.length)} of {sites.length}
                           </p>
                           <div className="flex items-center gap-2">
@@ -1726,18 +1726,18 @@ function Options() {
                     <h3 className="text-lg font-semibold text-black dark:text-white mb-4 tracking-tight">Recent Activity</h3>
                     <div className="space-y-2">
                       <div className="flex items-center gap-3 p-3 rounded-xl border bg-gray-100 dark:bg-[#252525] border-gray-200 dark:border-[#2A2A2A] hover:bg-gray-200 dark:hover:bg-[#2D2D2D] hover:border-gray-300 dark:hover:border-[#333] transition-colors">
-                        <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-black dark:text-white font-medium flex-grow">Unlocked facebook.com</span>
+                        <div className="w-2 h-2 bg-green-500 rounded-full shrink-0"></div>
+                        <span className="text-sm text-black dark:text-white font-medium grow">Unlocked facebook.com</span>
                         <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">2m</span>
                       </div>
                       <div className="flex items-center gap-3 p-3 rounded-xl border bg-white dark:bg-[#1A1A1A] border-gray-200 dark:border-[#2A2A2A] hover:bg-gray-100 dark:hover:bg-[#222222] hover:border-gray-300 dark:hover:border-[#333] transition-colors">
-                        <div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-black dark:text-white font-medium flex-grow">Locked youtube.com</span>
+                        <div className="w-2 h-2 bg-red-500 rounded-full shrink-0"></div>
+                        <span className="text-sm text-black dark:text-white font-medium grow">Locked youtube.com</span>
                         <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">5m</span>
                       </div>
                       <div className="flex items-center gap-3 p-3 rounded-xl border bg-gray-100 dark:bg-[#252525] border-gray-200 dark:border-[#2A2A2A] hover:bg-gray-200 dark:hover:bg-[#2D2D2D] hover:border-gray-300 dark:hover:border-[#333] transition-colors">
-                        <div className="w-2 h-2 bg-black dark:bg-white rounded-full flex-shrink-0"></div>
-                        <span className="text-sm text-black dark:text-white font-medium flex-grow">Added reddit.com</span>
+                        <div className="w-2 h-2 bg-black dark:bg-white rounded-full shrink-0"></div>
+                        <span className="text-sm text-black dark:text-white font-medium grow">Added reddit.com</span>
                         <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">1h</span>
                       </div>
                     </div>

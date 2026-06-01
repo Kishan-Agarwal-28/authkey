@@ -154,7 +154,7 @@ function Popup() {
               autoplay
               className="w-1/2 h-1/2 opacity-80 brightness-[0.2] grayscale mask-[radial-gradient(circle_at_center,black_0%,transparent_80%)]"
             />
-            <h1 className="text-white text-2xl font-extrabold font-sans text-wrap-balance text-center">
+            <h1 className="text-white text-2xl font-extrabold font-sans text-balance text-center">
               Set up your passcode to use AuthKey
             </h1>
             <div className="w-full space-y-2">
