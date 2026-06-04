@@ -11,8 +11,8 @@ interface StoredCredential {
   };
 }
 
-const RP_ID = chrome.runtime.id;
-const ORIGIN = `chrome-extension://${chrome.runtime.id}`;
+const RP_ID = typeof chrome !== 'undefined' && chrome.runtime ? chrome.runtime.id : 'mock-rp-id';
+const ORIGIN = typeof chrome !== 'undefined' && chrome.runtime ? `chrome-extension://${chrome.runtime.id}` : window.location.origin;
 
 function arrayBufferToBase64String(buffer: ArrayBuffer): string {
   return btoa(String.fromCharCode.apply(null, Array.from(new Uint8Array(buffer))))

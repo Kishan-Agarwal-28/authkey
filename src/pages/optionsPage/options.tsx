@@ -66,128 +66,7 @@ import { createRoot } from "react-dom/client";
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import "@/index.css";
-
-interface Site {
-  id: number;
-  url: string;
-  icon: string;
-  isLocked: boolean;
-  category: string;
-  unlockCount: number;
-  avgLockDuration: number;
-}
-
-// Mock data for demonstration
-const mockLockedSites: Site[] = [
-  {
-    id: 1,
-    url: "facebook.com",
-    icon: "🔵",
-    isLocked: true,
-    category: "Social Media",
-    unlockCount: 45,
-    avgLockDuration: 120,
-  },
-  {
-    id: 2,
-    url: "youtube.com",
-    icon: "🔴",
-    isLocked: true,
-    category: "Entertainment",
-    unlockCount: 67,
-    avgLockDuration: 85,
-  },
-  {
-    id: 3,
-    url: "twitter.com",
-    icon: "🐦",
-    isLocked: false,
-    category: "Social Media",
-    unlockCount: 32,
-    avgLockDuration: 95,
-  },
-  {
-    id: 4,
-    url: "instagram.com",
-    icon: "📷",
-    isLocked: true,
-    category: "Social Media",
-    unlockCount: 53,
-    avgLockDuration: 110,
-  },
-  {
-    id: 5,
-    url: "reddit.com",
-    icon: "🟠",
-    isLocked: true,
-    category: "Discussion",
-    unlockCount: 28,
-    avgLockDuration: 150,
-  },
-  {
-    id: 6,
-    url: "tiktok.com",
-    icon: "🎵",
-    isLocked: false,
-    category: "Entertainment",
-    unlockCount: 71,
-    avgLockDuration: 65,
-  },
-  {
-    id: 7,
-    url: "github.com",
-    icon: "🐙",
-    isLocked: true,
-    category: "Development",
-    unlockCount: 12,
-    avgLockDuration: 200,
-  },
-  {
-    id: 8,
-    url: "stackoverflow.com",
-    icon: "📚",
-    isLocked: false,
-    category: "Development",
-    unlockCount: 8,
-    avgLockDuration: 180,
-  },
-  {
-    id: 9,
-    url: "linkedin.com",
-    icon: "💼",
-    isLocked: true,
-    category: "Professional",
-    unlockCount: 15,
-    avgLockDuration: 90,
-  },
-  {
-    id: 10,
-    url: "discord.com",
-    icon: "🎮",
-    isLocked: false,
-    category: "Communication",
-    unlockCount: 38,
-    avgLockDuration: 120,
-  },
-  {
-    id: 11,
-    url: "twitch.tv",
-    icon: "🟣",
-    isLocked: true,
-    category: "Entertainment",
-    unlockCount: 42,
-    avgLockDuration: 75,
-  },
-  {
-    id: 12,
-    url: "netflix.com",
-    icon: "🔴",
-    isLocked: false,
-    category: "Entertainment",
-    unlockCount: 25,
-    avgLockDuration: 160,
-  },
-];
+import { ExtensionProvider, useSites, type Site } from "../../contexts/ExtensionContext";
 
 // Mock analytics data
 const weeklyUnlockData = [
@@ -326,15 +205,6 @@ const ConfirmationModal = ({
   );
 };
 
-interface Site {
-  id: number;
-  url: string;
-  icon: string;
-  isLocked: boolean;
-  category: string;
-  unlockCount: number;
-  avgLockDuration: number;
-}
 
 interface Schedule {
   id: number;
@@ -1341,18 +1211,18 @@ const Analytics = ({ sites }: { sites: Site[] }) => {
 
 function Options() {
   const [isLoggined, setIsLoggined] = useState(true);
-  const [sites, setSites] = useState(mockLockedSites);
+  const { sites, addSite, removeSite, toggleSiteLock } = useSites();
   const [todayUnlocks] = useState(23);
   const [showAddSite, setShowAddSite] = useState(false);
   const [newSiteUrl, setNewSiteUrl] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [confirmModal, setConfirmModal] = useState<{
     isOpen: boolean;
-    siteId: number | null;
+    siteUrl: string | null;
     siteName: string;
   }>({
     isOpen: false,
-    siteId: null,
+    siteUrl: null,
     siteName: "",
   });
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -1360,39 +1230,28 @@ function Options() {
 
   const sitesPerPage = 6;
 
-  const toggleSiteLock = (id: number) => {
-    setSites(
-      sites.map((site) =>
-        site.id === id ? { ...site, isLocked: !site.isLocked } : site
-      )
-    );
+  const handleToggleSiteLock = (host: string) => {
+    toggleSiteLock(host).catch(console.error);
   };
 
-  const openConfirmModal = (id: number, siteName: string) => {
-    setConfirmModal({ isOpen: true, siteId: id, siteName });
+  const openConfirmModal = (url: string, siteName: string) => {
+    setConfirmModal({ isOpen: true, siteUrl: url, siteName });
   };
 
   const closeConfirmModal = () => {
-    setConfirmModal({ isOpen: false, siteId: null, siteName: "" });
+    setConfirmModal({ isOpen: false, siteUrl: null, siteName: "" });
   };
 
   const confirmRemoveSite = () => {
-    setSites(sites.filter((site) => site.id !== confirmModal.siteId));
+    if (confirmModal.siteUrl) {
+      removeSite(confirmModal.siteUrl).catch(console.error);
+    }
     closeConfirmModal();
   };
 
   const addNewSite = () => {
     if (newSiteUrl.trim()) {
-      const newSite = {
-        id: Math.max(...sites.map((s) => s.id)) + 1,
-        url: newSiteUrl.trim(),
-        icon: "🌐",
-        isLocked: true,
-        category: "Custom",
-        unlockCount: 0,
-        avgLockDuration: 0,
-      };
-      setSites([...sites, newSite]);
+      addSite(newSiteUrl.trim()).catch(console.error);
       setNewSiteUrl("");
       setShowAddSite(false);
     }
@@ -1649,7 +1508,7 @@ function Options() {
                                 <Button
                                   variant="ghost"
                                   size="icon"
-                                  onClick={() => openConfirmModal(site.id, site.url)}
+                                  onClick={() => openConfirmModal(site.url, site.url)}
                                   className="text-gray-300 hover:text-red-600 hover:bg-red-50 opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8 absolute top-4 right-4"
                                 >
                                   <Trash2 className="w-4 h-4" />
@@ -1680,7 +1539,7 @@ function Options() {
 
                                 <Switch
                                    checked={site.isLocked}
-                                   onCheckedChange={() => toggleSiteLock(site.id)}
+                                   onCheckedChange={() => handleToggleSiteLock(site.url)}
                                    className="data-[state=checked]:bg-black dark:data-[state=checked]:bg-white"
                                  />
                               </div>
@@ -1790,6 +1649,8 @@ function Options() {
 
 createRoot(document.getElementById("root")!).render(
   <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-    <Options />
+    <ExtensionProvider>
+      <Options />
+    </ExtensionProvider>
   </ThemeProvider>
 );
