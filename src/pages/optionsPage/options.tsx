@@ -1484,10 +1484,9 @@ function Options() {
                       </div>
                     )}
 
-                    {/* Fixed height container for sites */}
-                    <div className="min-h-[400px] flex flex-col">
+                    <div className="flex flex-col">
                       {/* CHANGED: Swapped space-y-3 for a CSS Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 grow">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {currentSites.length > 0 ? (
                           currentSites.map((site, index) => (
                             <div
