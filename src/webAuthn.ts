@@ -11,7 +11,7 @@ interface StoredCredential {
   };
 }
 
-const RP_ID = typeof chrome !== 'undefined' && chrome.runtime ? chrome.runtime.id : 'mock-rp-id';
+const RP_ID = typeof chrome !== 'undefined' && chrome.runtime ? chrome.runtime.id : window.location.hostname;
 const ORIGIN = typeof chrome !== 'undefined' && chrome.runtime ? `chrome-extension://${chrome.runtime.id}` : window.location.origin;
 
 function arrayBufferToBase64String(buffer: ArrayBuffer): string {
@@ -162,9 +162,14 @@ export const registerUser = async (userId: string): Promise<{ success: boolean; 
       publicKeyAlgorithm: credential.response.publicKeyAlgorithm || -7, // Default to ES256
     };
 
-    // Store in Chrome extension storage
-    await chrome.storage.local.set({ [`credential_${userId}`]: credentialData });
-    await chrome.storage.local.set({ authkey_user: { userId } });
+    // Store in Chrome extension storage (or localStorage for dev)
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      await chrome.storage.local.set({ [`credential_${userId}`]: credentialData });
+      await chrome.storage.local.set({ authkey_user: { userId } });
+    } else {
+      localStorage.setItem(`credential_${userId}`, JSON.stringify(credentialData));
+      localStorage.setItem('authkey_user', JSON.stringify({ userId }));
+    }
     console.log('Stored credential data:', credentialData);
 
     return { 

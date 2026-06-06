@@ -2,20 +2,31 @@ import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Lock } from "lucide-react";
+import { useAuth } from "../../contexts/ExtensionContext";
 
-interface LoginScreenProps {
-  onLogin: () => void;
-}
-
-export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
+export const LoginScreen: React.FC = () => {
+  const { register } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleRegister = async () => {
+    if (!userId.trim()) {
+      setError("Please enter a user name.");
+      return;
+    }
+
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      onLogin();
-    }, 2000);
+    setError(null);
+
+    const result = await register(userId.trim());
+    setIsLoading(false);
+
+    if (!result.success) {
+      setError(result.message);
+    }
+    // On success, useAuth().isLoggedIn flips to true automatically
+    // and the parent Options component will re-render past this screen
   };
 
   return (
@@ -40,6 +51,23 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
               Set up your passcode to use AuthKey
             </h2>
           </div>
+
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Enter your user name"
+              value={userId}
+              onChange={(e) => {
+                setUserId(e.target.value);
+                setError(null);
+              }}
+              className="w-full rounded-xl border border-gray-200 dark:border-[#2A2A2A] bg-gray-50 dark:bg-[#252525] px-4 py-3 text-sm text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all"
+            />
+          </div>
+
+          {error && (
+            <p className="mb-4 text-sm text-red-500 dark:text-red-400">{error}</p>
+          )}
 
           <Button
             onClick={handleRegister}

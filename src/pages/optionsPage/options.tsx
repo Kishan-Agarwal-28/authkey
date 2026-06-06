@@ -25,7 +25,7 @@ import { createRoot } from "react-dom/client";
 import { Card } from "@/components/ui/card";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import "@/index.css";
-import { ExtensionProvider, useSites } from "../../contexts/ExtensionContext";
+import { ExtensionProvider, useAuth, useSites } from "../../contexts/ExtensionContext";
 
 // Imported Shared/Options subcomponents
 import { NumberTicker } from "../../components/shared/NumberTicker";
@@ -35,7 +35,7 @@ import { ScheduleLock } from "../../components/options/ScheduleLock";
 import { Analytics } from "../../components/options/Analytics";
 
 function Options() {
-  const [isLoggined, setIsLoggined] = useState(true);
+  const { isLoggedIn, isLoading: isAuthLoading } = useAuth();
   const { sites, addSite, removeSite, toggleSiteLock } = useSites();
   const [todayUnlocks] = useState(23);
   const [showAddSite, setShowAddSite] = useState(false);
@@ -94,8 +94,19 @@ function Options() {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
 
-  if (!isLoggined) {
-    return <LoginScreen onLogin={() => setIsLoggined(true)} />;
+  if (isAuthLoading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-[#F5F5F5] dark:bg-[#0F0F0F] transition-colors">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-black dark:border-white border-t-transparent dark:border-t-transparent rounded-full animate-spin" />
+          <span className="text-sm text-gray-500 dark:text-gray-400">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isLoggedIn) {
+    return <LoginScreen />;
   }
 
   return (
