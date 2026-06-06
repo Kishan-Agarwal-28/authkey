@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import type { FC, ReactNode } from "react";
 import { getLockedSites, setLockRecord, deleteLockRecord, getLockRecord } from "../storage/lockDb";
 import { registerUser } from "../webAuthn";
 
@@ -31,7 +32,7 @@ interface ExtensionContextType {
 
 const ExtensionContext = createContext<ExtensionContextType | undefined>(undefined);
 
-export const ExtensionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ExtensionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [sites, setSites] = useState<Site[]>([]);
@@ -101,7 +102,7 @@ export const ExtensionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         };
       });
       setSites(mapped);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Failed to load sites", err);
     } finally {
       setIsSitesLoading(false);

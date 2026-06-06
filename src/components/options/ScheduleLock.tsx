@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import type { FC } from "react";
 import { 
   Clock, 
   Timer, 
@@ -58,7 +59,7 @@ interface ScheduleLockProps {
   sites: Site[];
 }
 
-export const ScheduleLock: React.FC<ScheduleLockProps> = ({ sites: initialSites = [] }) => {
+export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }) => {
   const [sites, setSites] = useState<Site[]>(initialSites);
   const [selectedSites, setSelectedSites] = useState<number[]>([]);
   const [startTime, setStartTime] = useState("");

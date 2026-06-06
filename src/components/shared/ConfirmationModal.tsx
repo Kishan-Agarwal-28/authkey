@@ -1,4 +1,4 @@
-import React from "react";
+import type { FC } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
@@ -10,7 +10,7 @@ interface ConfirmationModalProps {
   siteName: string;
 }
 
-export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+export const ConfirmationModal: FC<ConfirmationModalProps> = ({
   isOpen,
   onClose,
   onConfirm,

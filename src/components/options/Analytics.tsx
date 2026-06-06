@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import type { FC } from "react";
 import { useTheme } from "@/components/ui/theme-provider";
 import {
   XAxis,
@@ -65,7 +66,7 @@ interface AnalyticsProps {
   sites: Site[];
 }
 
-export const Analytics: React.FC<AnalyticsProps> = ({ sites }) => {
+export const Analytics: FC<AnalyticsProps> = ({ sites }) => {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const [timeRange, setTimeRange] = useState("week");

@@ -1,11 +1,11 @@
-import React from "react";
+import type { FC } from "react";
 
 interface NumberTickerProps {
   value: number | string;
   className?: string;
 }
 
-export const NumberTicker: React.FC<NumberTickerProps> = ({ value, className = "" }) => {
+export const NumberTicker: FC<NumberTickerProps> = ({ value, className = "" }) => {
   return (
     <div
       className={`font-sans text-2xl sm:text-4xl font-bold text-black dark:text-white tracking-tight ${className}`}

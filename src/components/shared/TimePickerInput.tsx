@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import type { FC } from "react";
 import { Clock, ChevronDown } from "lucide-react";
 
 export const parseTimeTo12Hour = (timeString: string) => {
@@ -28,7 +29,7 @@ interface TimePickerInputProps {
   onChange: (val: string) => void;
 }
 
-export const TimePickerInput: React.FC<TimePickerInputProps> = ({ 
+export const TimePickerInput: FC<TimePickerInputProps> = ({ 
   label, 
   value, 
   onChange 

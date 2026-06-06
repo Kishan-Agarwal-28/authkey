@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import type { FC } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Lock } from "lucide-react";
 import { useAuth } from "../../contexts/ExtensionContext";
 
-export const LoginScreen: React.FC = () => {
+export const LoginScreen: FC = () => {
   const { register } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState("");
@@ -61,7 +62,7 @@ export const LoginScreen: React.FC = () => {
                 setUserId(e.target.value);
                 setError(null);
               }}
-              className="w-full rounded-xl border border-gray-200 dark:border-[#2A2A2A] bg-gray-50 dark:bg-[#252525] px-4 py-3 text-sm text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all"
+              className="w-full rounded-xl border border-gray-200 dark:border-[#2A2A2A] bg-gray-50 dark:bg-[#252525] px-4 py-3 text-sm text-black dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-hidden focus:ring-2 focus:ring-black dark:focus:ring-white transition-all"
             />
           </div>
 
