@@ -1,50 +1,38 @@
-import type { Tokens, Theme } from "../shared/tokens";
 import { ShieldFP } from "../shared/ShieldFP";
 import { ShieldIcon } from "../shared/icons";
 
 type Props = {
-  tk:             Tokens;
-  theme:          Theme;
   userId:         string;
   status:         string;
   onUserIdChange: (v: string) => void;
   onRegister:     () => void;
 };
 
-export const SetupScreen = ({ tk, theme, userId, status, onUserIdChange, onRegister }: Props) => (
+export const SetupScreen = ({ userId, status, onUserIdChange, onRegister }: Props) => (
   <div className="flex flex-col items-center">
 
     {/* Shield + decorative rings */}
-    <div
-      className="relative flex items-center justify-center rounded-full flex-shrink-0"
-      style={{ width: 96, height: 96, background: tk.surface, border: `1px solid ${tk.border}`, marginBottom: 18 }}
-    >
-      <div className="absolute rounded-full pointer-events-none"
-        style={{ inset: -10, border: `1px solid ${tk.border}`, opacity: 0.6 }} />
-      <div className="absolute rounded-full pointer-events-none"
-        style={{ inset: -20, border: `1px solid ${tk.border}`, opacity: 0.3 }} />
-      <ShieldFP theme={theme} />
+    <div className="relative flex items-center justify-center rounded-full flex-shrink-0 mb-[18px] w-24 h-24 bg-surface border border-border">
+      <div className="absolute rounded-full pointer-events-none opacity-60 border border-border" style={{ inset: -10 }} />
+      <div className="absolute rounded-full pointer-events-none opacity-30 border border-border" style={{ inset: -20 }} />
+      <ShieldFP />
     </div>
 
-    <span className="font-mono uppercase" style={{ fontSize: 8, letterSpacing: "0.2em", color: tk.accent, opacity: 0.8, marginBottom: 7 }}>
+    <span className="font-mono uppercase tracking-[0.2em] text-[8px] text-ak-accent opacity-80 mb-[7px]">
       WebAuthn · Biometric
     </span>
 
-    <h2 className="font-sans font-semibold text-center"
-      style={{ fontSize: 17, lineHeight: 1.25, letterSpacing: "-0.03em", color: tk.text, marginBottom: 4 }}>
+    <h2 className="font-sans font-semibold text-center text-[17px] leading-tight tracking-[-0.03em] text-text mb-1">
       Set up AuthKey
     </h2>
 
-    <p className="font-mono uppercase"
-      style={{ fontSize: 8, letterSpacing: "0.14em", color: tk.textMuted, marginBottom: 22 }}>
+    <p className="font-mono uppercase tracking-[0.14em] text-[8px] text-text-muted mb-[22px]">
       secure your browsing
     </p>
 
-    {/* Form */}
-    <div className="w-full flex flex-col" style={{ gap: 10 }}>
+    <div className="w-full flex flex-col gap-[10px]">
       <div>
-        <label className="font-mono uppercase block"
-          style={{ fontSize: 8, letterSpacing: "0.16em", color: tk.textMuted, marginBottom: 5 }}>
+        <label className="font-mono uppercase block text-[8px] tracking-[0.16em] text-text-muted mb-[5px]">
           Username
         </label>
         <input
@@ -53,30 +41,21 @@ export const SetupScreen = ({ tk, theme, userId, status, onUserIdChange, onRegis
           value={userId}
           onChange={e => onUserIdChange(e.target.value)}
           onKeyDown={e => e.key === "Enter" && onRegister()}
-          className="w-full rounded outline-none transition-colors font-mono"
-          style={{
-            background: tk.inputBg, border: `1px solid ${tk.border}`, color: tk.textSub,
-            fontSize: 11, letterSpacing: "0.03em", padding: "9px 11px", borderRadius: 5,
-          }}
+          className="w-full rounded-[5px] outline-none transition-colors font-mono text-[11px] tracking-[0.03em] px-[11px] py-[9px] bg-input-bg border border-border text-text-sub"
         />
       </div>
 
       <button
         onClick={onRegister}
-        className="relative w-full flex items-center justify-center rounded font-mono font-bold uppercase overflow-hidden cursor-pointer transition-all"
-        style={{
-          fontSize: 9, letterSpacing: "0.14em", gap: 7, padding: 10,
-          background: tk.btnBg, border: `1px solid ${tk.btnBorder}`, color: tk.text, borderRadius: 5,
-        }}
+        className="relative w-full flex items-center justify-center gap-[7px] rounded-[5px] font-mono font-bold uppercase overflow-hidden cursor-pointer transition-all text-[9px] tracking-[0.14em] p-[10px] bg-btn-bg border border-btn-border text-text"
       >
-        <span className="absolute top-0 left-0 bottom-0" style={{ width: 2, background: tk.accent }} />
-        <ShieldIcon color={tk.text} /> Register AuthKey
+        <span className="absolute top-0 left-0 bottom-0 w-0.5 bg-ak-accent" />
+        <ShieldIcon color="currentColor" /> Register AuthKey
       </button>
     </div>
 
     {status && (
-      <p className="font-mono text-center"
-        style={{ fontSize: 9, letterSpacing: "0.06em", color: tk.textMuted, marginTop: 8 }}>
+      <p className="font-mono text-center text-[9px] tracking-[0.06em] text-text-muted mt-2">
         {status}
       </p>
     )}
