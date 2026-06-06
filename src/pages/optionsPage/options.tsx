@@ -35,7 +35,7 @@ import { ScheduleLock } from "../../components/options/ScheduleLock";
 import { Analytics } from "../../components/options/Analytics";
 
 function Options() {
-  const { isLoggedIn, isLoading: isAuthLoading } = useAuth();
+  const { isLoggedIn, isLoading: isAuthLoading, user } = useAuth();
   const { sites, addSite, removeSite, toggleSiteLock } = useSites();
   const [todayUnlocks] = useState(23);
   const [showAddSite, setShowAddSite] = useState(false);
@@ -228,7 +228,7 @@ function Options() {
                 <Shield className="absolute -right-20 -bottom-48 w-96 h-96 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                 <div className="relative z-10 flex flex-col justify-center">
                   <h2 className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-1 flex items-center gap-2 tracking-tight">
-                    👋 Hello Swarnabh,
+                    👋 Hello {user?.userId || "User"},
                   </h2>
                   <p className="text-gray-500 dark:text-gray-400 mb-4 max-w-md text-xs sm:text-sm leading-relaxed">
                     Welcome to your AuthKey Dashboard! Monitor your unlocked sites,
