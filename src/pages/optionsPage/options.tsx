@@ -218,7 +218,7 @@ function Options() {
                 <div 
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    backgroundImage: 'linear-gradient(to right, rgba(156, 163, 175, 0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(156, 163, 175, 0.35) 1px, transparent 1px)',
+                    backgroundImage: 'linear-gradient(to right, rgba(156, 163, 175, 0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(156, 163, 175, 0.15) 1px, transparent 1px)',
                     backgroundSize: '20px 20px',
                     WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%)',
                     maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 90%)',
