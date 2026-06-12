@@ -394,7 +394,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                 className={`p-3 rounded-xl border text-sm font-medium transition-all ${
                   repeatOption === option.id
                     ? "bg-black dark:bg-white border-black dark:border-white text-white dark:text-black font-semibold"
-                    : "bg-white dark:bg-[#1A1A1A] border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white hover:bg-gray-50 dark:hover:bg-[#252525] hover:border-gray-300 dark:border-[#333]"
+                    : "bg-white dark:bg-[#1A1A1A] border-gray-200  text-black dark:text-white hover:bg-gray-50 dark:hover:bg-[#252525] hover:border-gray-300 dark:border-[#333]"
                 }`}
               >
                 {option.label}
