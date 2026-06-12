@@ -182,7 +182,7 @@ function Options() {
               <input
                 type="text"
                 placeholder="Search sites, settings..."
-                className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white rounded-xl outline-hidden focus:border-gray-400 dark:focus:border-gray-500 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-700 transition-all placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
+                className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] text-black rounded-xl outline-hidden focus:border-gray-400 dark:focus:border-gray-500 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-700 transition-all placeholder:text-gray-400 dark:text-gray-400 dark:placeholder:text-gray-500"
               />
             </div>
 
@@ -244,7 +244,7 @@ function Options() {
 
               {/* 3-COLUMN KPI GRID (Glassmorphism) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-                <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] dark:hover:border-gray-700 hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
+                <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 hover:border-gray-300 dark:border-[#333] dark:hover:border-gray-700 hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
                   <Unlock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                   <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-[#252525] border border-gray-200 dark:border-[#2A2A2A]">
@@ -257,7 +257,7 @@ function Options() {
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
+                <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 hover:border-gray-300 dark:border-[#333] hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
                   <Lock className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                   <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-[#252525] border border-gray-200 dark:border-[#2A2A2A]">
@@ -270,7 +270,7 @@ function Options() {
                   </div>
                 </Card>
 
-                <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
+                <Card className="p-5 bg-white dark:bg-[#1A1A1A] border border-gray-200 hover:border-gray-300 dark:border-[#333] hover:shadow-md transition-all duration-200 rounded-2xl relative overflow-hidden">
                   <Globe className="absolute -right-8 -bottom-16 w-40 h-40 text-gray-200 opacity-40 dark:opacity-10 pointer-events-none" />
                   <div className="relative z-10 flex items-start justify-between mb-3">
                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-[#252525] border border-gray-200 dark:border-[#2A2A2A]">
@@ -289,7 +289,7 @@ function Options() {
 
                 {/* Left Side: Managed Sites (Takes up 2 columns) */}
                 <div className="xl:col-span-2">
-                  <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                  <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 hover:border-gray-300 dark:border-[#333] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                       <h2 className="text-xl font-semibold text-black dark:text-white tracking-tight">Managed Sites</h2>
                       <Button
@@ -401,7 +401,7 @@ function Options() {
                               size="icon"
                               onClick={() => goToPage(currentPage - 1)}
                               disabled={currentPage === 1}
-                              className="border-gray-300 dark:border-[#333] bg-white dark:bg-[#1A1A1A] hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white disabled:opacity-40"
+                              className="border-gray-300 dark:border-[#333] bg-white hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white disabled:opacity-40"
                             >
                               <ChevronLeft className="w-4 h-4" />
                             </Button>
@@ -410,7 +410,7 @@ function Options() {
                               size="icon"
                               onClick={() => goToPage(currentPage + 1)}
                               disabled={currentPage === totalPages}
-                              className="border-gray-300 dark:border-[#333] bg-white dark:bg-[#1A1A1A] hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white disabled:opacity-40"
+                              className="border-gray-300 dark:border-[#333] bg-white hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white disabled:opacity-40"
                             >
                               <ChevronRight className="w-4 h-4" />
                             </Button>
@@ -423,25 +423,25 @@ function Options() {
 
                 {/* Right Side: Quick Actions & Activity */}
                 <div className="space-y-6">
-                  <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                  <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 hover:border-gray-300 dark:border-[#333] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <h3 className="text-lg font-semibold text-black dark:text-white mb-4 tracking-tight">Quick Actions</h3>
                     <div className="space-y-3">
-                      <Button variant="outline" className="w-full justify-start border-gray-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1A1A1A] hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white py-6 rounded-xl">
+                      <Button variant="outline" className="w-full justify-start border-gray-200 dark:border-[#2A2A2A] bg-white hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white py-6 rounded-xl">
                         <Eye className="w-4 h-4 mr-3 text-black dark:text-white" />
                         Unlock All Sites
                       </Button>
-                      <Button variant="outline" className="w-full justify-start border-gray-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1A1A1A] hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white py-6 rounded-xl">
+                      <Button variant="outline" className="w-full justify-start border-gray-200 dark:border-[#2A2A2A] bg-white hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white py-6 rounded-xl">
                         <EyeOff className="w-4 h-4 mr-3 text-black dark:text-white" />
                         Lock All Sites
                       </Button>
-                      <Button onClick={() => setActiveTab("schedule")} variant="outline" className="w-full justify-start border-gray-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1A1A1A] hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white py-6 rounded-xl">
+                      <Button onClick={() => setActiveTab("schedule")} variant="outline" className="w-full justify-start border-gray-200 dark:border-[#2A2A2A] bg-white hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] text-black dark:text-white py-6 rounded-xl">
                         <Timer className="w-4 h-4 mr-3 text-black dark:text-white" />
                         Schedule Locks
                       </Button>
                     </div>
                   </Card>
 
-                  <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                  <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 hover:border-gray-300 dark:border-[#333] rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <h3 className="text-lg font-semibold text-black dark:text-white mb-4 tracking-tight">Recent Activity</h3>
                     <div className="space-y-2">
                       <div className="flex items-center gap-3 p-3 rounded-xl border bg-gray-100 dark:bg-[#252525] border-gray-200 dark:border-[#2A2A2A] hover:bg-gray-200 dark:hover:bg-[#2D2D2D] hover:border-gray-300 dark:hover:border-[#333] transition-colors">

@@ -284,7 +284,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
               <Button
                 onClick={handleAddSite}
                 disabled={!newSiteUrl.trim()}
-                className="bg-black dark:bg-white dark:bg-[#1A1A1A] hover:bg-gray-900 dark:hover:bg-gray-100 dark:hover:bg-[#2A2A2A] dark:bg-[#252525] text-white rounded-lg px-4 h-[42px] font-medium"
+                className="bg-black hover:bg-gray-900 dark:hover:bg-[#2A2A2A] dark:bg-[#252525] text-white rounded-lg px-4 h-[42px] font-medium"
               >
                 Add
               </Button>
@@ -318,10 +318,10 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                         onClick={() => toggleSiteSelection(site.id)}
                         className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
                           isSelected
-                            ? "bg-black dark:bg-white dark:bg-[#1A1A1A] border-black dark:border-white text-white shadow-sm"
+                            ? "bg-black dark:bg-white border-black dark:border-white text-white dark:text-black shadow-sm"
                             : index % 2 === 0
-                            ? "bg-gray-100 dark:bg-[#252525] border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white hover:bg-gray-200 dark:hover:bg-[#333] dark:bg-[#333]"
-                            : "bg-white dark:bg-[#1A1A1A] border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F]"
+                            ? "bg-gray-100 dark:bg-[#252525] border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white hover:bg-gray-200 dark:hover:bg-[#333]"
+                            : "bg-white dark:bg-[#1A1A1A] border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white hover:bg-gray-50 dark:hover:bg-[#252525]"
                         }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
@@ -329,7 +329,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                           <span className="truncate text-sm font-medium">{site.url}</span>
                         </div>
                         {isSelected && (
-                          <Check className="w-4 h-4 text-white shrink-0 ml-2" />
+                          <Check className="w-4 h-4 text-white dark:text-black shrink-0 ml-2" />
                         )}
                       </button>
                     );
@@ -381,7 +381,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
 
         {/* Repeat Options */}
         <div className="mb-8">
-          <label className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 block flex items-center gap-2 uppercase tracking-wider">
+          <label className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
             <Repeat className="w-4 h-4 text-black dark:text-white" />
             Repeat Schedule
           </label>

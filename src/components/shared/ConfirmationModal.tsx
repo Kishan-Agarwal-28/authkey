@@ -34,13 +34,13 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
           <Button
             variant="outline"
             onClick={onClose}
-            className="flex-1 border-gray-300 dark:border-[#333] bg-white dark:bg-[#1A1A1A] hover:bg-gray-50 dark:hover:bg-[#252525] dark:bg-[#1F1F1F] dark:hover:bg-[#252525] text-black dark:text-white"
+            className="flex-1 border-gray-300 dark:border-[#333] bg-white hover:bg-gray-50 dark:bg-[#1F1F1F] dark:hover:bg-[#252525] text-black dark:text-white"
           >
             Cancel
           </Button>
           <Button
             onClick={onConfirm}
-            className="flex-1 bg-red-600 hover:bg-red-700 text-white dark:text-black dark:text-white dark:bg-red-700 dark:hover:bg-red-800"
+            className="flex-1 bg-red-600 hover:bg-red-700 text-white dark:text-white dark:bg-red-700 dark:hover:bg-red-800"
           >
             Remove Site
           </Button>

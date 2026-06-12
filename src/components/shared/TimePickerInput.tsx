@@ -84,7 +84,7 @@ export const TimePickerInput: FC<TimePickerInputProps> = ({
             </div>
 
             {/* Minutes Column */}
-            <div className="flex-1 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800 border-l border-r border-gray-100 dark:border-[#2A2A2A] px-1">
+            <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800 border-l border-r border-gray-100 dark:border-[#2A2A2A] px-1">
               <div className="text-[10px] font-bold text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-2 text-center sticky top-0 bg-white dark:bg-[#1A1A1A] py-1">Min</div>
               <div className="space-y-1">
                 {minutesList.map((m) => (

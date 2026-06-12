@@ -382,22 +382,22 @@ export const Analytics: FC<AnalyticsProps> = ({ sites }) => {
           Recent Achievements
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] transition-colors">
+          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 hover:border-gray-300 dark:border-[#333] transition-colors">
             <Trophy className="w-8 h-8 text-yellow-500 mb-3" />
             <h4 className="font-semibold text-black dark:text-white">Week Warrior</h4>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">7 days streak</p>
           </div>
-          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] transition-colors">
+          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 hover:border-gray-300 dark:border-[#333] transition-colors">
             <Shield className="w-8 h-8 text-black dark:text-white mb-3" />
             <h4 className="font-semibold text-black dark:text-white">Lock Master</h4>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">100 sites locked</p>
           </div>
-          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] transition-colors">
+          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 hover:border-gray-300 dark:border-[#333] transition-colors">
             <Target className="w-8 h-8 text-green-600 mb-3" />
             <h4 className="font-semibold text-black dark:text-white">Focus Champion</h4>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">30 challenges completed</p>
           </div>
-          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 dark:border-[#2A2A2A] hover:border-gray-300 dark:border-[#333] transition-colors">
+          <div className="p-5 rounded-xl bg-gray-50 dark:bg-[#1F1F1F] border border-gray-200 hover:border-gray-300 dark:border-[#333] transition-colors">
             <Flame className="w-8 h-8 text-orange-500 mb-3" />
             <h4 className="font-semibold text-black dark:text-white">Streak Legend</h4>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">30 days streak</p>
