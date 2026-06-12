@@ -172,10 +172,11 @@ function Popup() {
                 className="w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm"
               />
             </div>
-            <Button
+            <button
               className="mt-4 px-10 py-7 rounded-md cursor-pointer"
-              onClick={handleRegister}
-          </div>
+              onClick={handleRegister}></button>
+            
+        </div>
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs tracking-[0.12em] px-2 py-1 rounded text-text-muted">
               v1.0
