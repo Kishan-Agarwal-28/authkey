@@ -3,7 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ════════════════════════════════════════
+   AUTHKEY DESIGN TOKENS
+════════════════════════════════════════ */
 :root {
+  /* ── shadcn/ui tokens (actively used by ui components) ── */
   --background: oklch(0.9730 0.0133 286.1503);
   --foreground: oklch(0.3015 0.0572 282.4176);
   --card: oklch(1.0000 0 0);
@@ -36,6 +40,32 @@
   --sidebar-accent-foreground: oklch(0.3015 0.0572 282.4176);
   --sidebar-border: oklch(0.9115 0.0216 285.9625);
   --sidebar-ring: oklch(0.5417 0.1790 288.0332);
+
+  /* ── Custom AuthKey palette (light) ── */
+  --c-bg:            #f6f5f1;
+  --c-surface:       #eeede8;
+  --c-surface-deep:  #e6e5e0;
+  --c-border:        #dddbd4;
+  --c-border-strong: #cac8c2;
+  --c-text:          #18181a;
+  --c-text-sub:      #2e2c30;
+  --c-text-muted:    #5c5a60;
+  --c-text-dim:      #8a8880;
+  --c-accent:        #d63030;
+  --c-accent-dim:    #faeaea;
+  --c-accent-border: #d6303040;
+  --c-amber:         #c47e00;
+  --c-green:         #1e9e40;
+  --c-green-border:  #1e9e4040;
+  --c-input-bg:      #eae9e4;
+  --c-btn-bg:        #e8e7e2;
+  --c-btn-border:    #cac8c2;
+  --c-led-neutral:   #c8c6c0;
+  --c-tag-bg:        #faeaea;
+  --c-icon:          #a0a09a;
+  --c-site-ico-bg:   #e4e3de;
+
+  /* ── Fonts / radius / shadows (existing) ── */
   --font-sans: 'IBM Plex Mono', monospace;
   --font-serif: Georgia, serif;
   --font-mono: JetBrains Mono, monospace;
@@ -51,6 +81,7 @@
 }
 
 .dark {
+  /* ── shadcn/ui tokens (actively used by ui components) ── */
   --background: oklch(0.1743 0.0227 283.7998);
   --foreground: oklch(0.9185 0.0257 285.8834);
   --card: oklch(0.2284 0.0384 282.9324);
@@ -83,6 +114,32 @@
   --sidebar-accent-foreground: oklch(0.9185 0.0257 285.8834);
   --sidebar-border: oklch(0.3261 0.0597 282.5832);
   --sidebar-ring: oklch(0.7162 0.1597 290.3962);
+
+  /* ── Custom AuthKey palette (dark) ── */
+  --c-bg:            #0d0d10;
+  --c-surface:       #111116;
+  --c-surface-deep:  #0a0a0e;
+  --c-border:        #1e1e24;
+  --c-border-strong: #2a2a32;
+  --c-text:          #f0eeeb;
+  --c-text-sub:      #d0cec8;
+  --c-text-muted:    #7a7888;
+  --c-text-dim:      #52505c;
+  --c-accent:        #ff5555;
+  --c-accent-dim:    #2a0f0f;
+  --c-accent-border: #ff555540;
+  --c-amber:         #f5a623;
+  --c-green:         #3ecf60;
+  --c-green-border:  #3ecf6050;
+  --c-input-bg:      #0e0e12;
+  --c-btn-bg:        #1c1c22;
+  --c-btn-border:    #2e2e38;
+  --c-led-neutral:   #3a3a46;
+  --c-tag-bg:        #2a0f0f;
+  --c-icon:          #5a5868;
+  --c-site-ico-bg:   #111114;
+
+  /* ── Fonts / radius / shadows (existing) ── */
   --font-sans: 'IBM Plex Mono', monospace;
   --font-serif: Georgia, serif;
   --font-mono: JetBrains Mono, monospace;
@@ -97,7 +154,11 @@
   --shadow-2xl: 0px 4px 10px 0px hsl(240 30% 25% / 0.30);
 }
 
+/* ════════════════════════════════════════
+   TAILWIND @theme INLINE
+════════════════════════════════════════ */
 @theme inline {
+  /* ── shadcn/ui color mappings (existing — do not remove) ── */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -131,15 +192,41 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* ── Custom AuthKey color mappings (new — enables bg-bg, text-text-sub, etc.) ── */
+  --color-bg:              var(--c-bg);
+  --color-surface:         var(--c-surface);
+  --color-surface-deep:    var(--c-surface-deep);
+  --color-border-strong:   var(--c-border-strong);
+  --color-text:            var(--c-text);
+  --color-text-sub:        var(--c-text-sub);
+  --color-text-muted:      var(--c-text-muted);
+  --color-text-dim:        var(--c-text-dim);
+  --color-ak-accent:       var(--c-accent);
+  --color-ak-accent-dim:   var(--c-accent-dim);
+  --color-ak-accent-border: var(--c-accent-border);
+  --color-amber:           var(--c-amber);
+  --color-green:           var(--c-green);
+  --color-green-border:    var(--c-green-border);
+  --color-input-bg:        var(--c-input-bg);
+  --color-btn-bg:          var(--c-btn-bg);
+  --color-btn-border:      var(--c-btn-border);
+  --color-led-neutral:     var(--c-led-neutral);
+  --color-tag-bg:          var(--c-tag-bg);
+  --color-icon:            var(--c-icon);
+  --color-site-ico-bg:     var(--c-site-ico-bg);
+
+  /* ── Fonts (existing) ── */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
 
+  /* ── Radii (existing) ── */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
+  /* ── Shadows (existing) ── */
   --shadow-2xs: var(--shadow-2xs);
   --shadow-xs: var(--shadow-xs);
   --shadow-sm: var(--shadow-sm);
@@ -150,21 +237,28 @@
   --shadow-2xl: var(--shadow-2xl);
 }
 
+/* ════════════════════════════════════════
+   BASE LAYER
+════════════════════════════════════════ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
   }
   body {
     @apply bg-background text-foreground;
   }
 }
 
-
-        * {
-            scrollbar-width: none;
-        }
-
-
-        *::-webkit-scrollbar {
-            display: none;
-        }
+/* ════════════════════════════════════════
+   TIME PICKER
+════════════════════════════════════════ */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+}
+.dark input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
