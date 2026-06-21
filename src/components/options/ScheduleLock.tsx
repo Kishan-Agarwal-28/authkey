@@ -79,39 +79,79 @@ const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
 
     const updateTimer = () => {
       const now = dayjs();
-      let start = dayjs(schedule.startTime, "HH:mm");
-      let end = dayjs(schedule.endTime, "HH:mm");
+      const daysMap = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
-      // Handle overnight schedules 
-      if (end.isBefore(start)) {
-        if (now.isAfter(start) || now.isSame(start)) {
-          end = end.add(1, "day");
-        } else if (now.isBefore(end)) {
-          start = start.subtract(1, "day");
-        } else {
-          end = end.add(1, "day");
+      const isValidDay = (d: dayjs.Dayjs) => {
+        if (schedule.repeat === "daily" || schedule.repeat === "never") return true;
+        const dayIndex = d.day();
+        const dayName = daysMap[dayIndex];
+        if (schedule.repeat === "weekdays") return dayIndex >= 1 && dayIndex <= 5;
+        if (schedule.repeat === "weekends") return dayIndex === 0 || dayIndex === 6;
+        if (schedule.repeat === "custom") return schedule.customDays.includes(dayName);
+        return true;
+      };
+
+      let currentlyLockingEnd = null;
+
+      // Check yesterday's window 
+      const yesterday = now.subtract(1, "day");
+      if (isValidDay(yesterday)) {
+        const startY = dayjs(`${yesterday.format("YYYY-MM-DD")} ${schedule.startTime}`, "YYYY-MM-DD HH:mm");
+        let endY = dayjs(`${yesterday.format("YYYY-MM-DD")} ${schedule.endTime}`, "YYYY-MM-DD HH:mm");
+        if (endY.isBefore(startY)) endY = endY.add(1, "day");
+
+        if (now.isBetween(startY, endY, null, "[)")) {
+          currentlyLockingEnd = endY;
         }
       }
 
-      if (now.isBetween(start, end, null, "[)")) {
-        const diff = end.diff(now);
-        const dur = dayjs.duration(diff);
-        const h = Math.floor(dur.asHours());
-        const m = dur.minutes().toString().padStart(2, "0");
-        const s = dur.seconds().toString().padStart(2, "0");
-        setTimeLeft(`${h}h ${m}m ${s}s`);
-        setStatus("locking");
-      } else {
-        if (now.isAfter(end) || now.isSame(end)) {
-          start = start.add(1, "day");
+      // Check today's window
+      const today = now;
+      if (!currentlyLockingEnd && isValidDay(today)) {
+        const startT = dayjs(`${today.format("YYYY-MM-DD")} ${schedule.startTime}`, "YYYY-MM-DD HH:mm");
+        let endT = dayjs(`${today.format("YYYY-MM-DD")} ${schedule.endTime}`, "YYYY-MM-DD HH:mm");
+        if (endT.isBefore(startT)) endT = endT.add(1, "day");
+
+        if (now.isBetween(startT, endT, null, "[)")) {
+          currentlyLockingEnd = endT;
         }
-        const diff = start.diff(now);
-        const dur = dayjs.duration(diff);
-        const h = Math.floor(dur.asHours());
+      }
+
+      const formatDiff = (diffMs: number) => {
+        const dur = dayjs.duration(diffMs);
+        const d = Math.floor(dur.asDays());
+        const h = dur.hours();
         const m = dur.minutes().toString().padStart(2, "0");
         const s = dur.seconds().toString().padStart(2, "0");
-        setTimeLeft(`${h}h ${m}m ${s}s`);
-        setStatus("waiting");
+        let tStr = "";
+        if (d > 0) tStr += `${d}d `;
+        tStr += `${h}h ${m}m ${s}s`;
+        return tStr;
+      };
+
+      if (currentlyLockingEnd) {
+        setStatus("locking");
+        setTimeLeft(formatDiff(currentlyLockingEnd.diff(now)));
+      } else {
+        // Find next start time
+        let nextStart = null;
+        for (let i = 0; i <= 7; i++) {
+          const checkDay = now.add(i, "day");
+          if (isValidDay(checkDay)) {
+            const startC = dayjs(`${checkDay.format("YYYY-MM-DD")} ${schedule.startTime}`, "YYYY-MM-DD HH:mm");
+            if (startC.isAfter(now)) {
+              nextStart = startC;
+              break;
+            }
+          }
+        }
+
+        if (nextStart) {
+          setStatus("waiting");
+          setTimeLeft(formatDiff(nextStart.diff(now)));
+        } else {
+          setStatus("");
+        }
       }
     };
 
@@ -120,7 +160,7 @@ const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
     return () => clearInterval(interval);
   }, [schedule]);
 
-  if (!schedule.isActive) return null;
+  if (!schedule.isActive || !status) return null;
 
   return (
     <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md border font-mono text-xs ${
