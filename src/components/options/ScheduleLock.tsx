@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { TimePickerInput } from "../shared/TimePickerInput";
 import { type Site } from "../../contexts/ExtensionContext";
+import { getAllSchedules, putSchedule, deleteScheduleRecord } from "../../storage/lockDb";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
@@ -187,30 +188,15 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   const [showSites, setShowSites] = useState(true);
   const [siteSearchQuery, setSiteSearchQuery] = useState("");
 
-  const [scheduledLocks, setScheduledLocks] = useState<Schedule[]>([
-    {
-      id: 1,
-      name: "Work Hours Focus",
-      sites: ["facebook.com", "youtube.com"],
-      startTime: "09:00",
-      endTime: "17:00",
-      repeat: "weekdays",
-      customDays: [],
-      isActive: true,
-      canModify: true,
-    },
-    {
-      id: 2,
-      name: "Sleep Time",
-      sites: ["instagram.com", "tiktok.com"],
-      startTime: "22:00",
-      endTime: "06:00",
-      repeat: "daily",
-      customDays: [],
-      isActive: false,
-      canModify: false,
-    },
-  ]);
+  const [scheduledLocks, setScheduledLocks] = useState<Schedule[]>([]);
+
+  useEffect(() => {
+    getAllSchedules().then((saved) => {
+      if (saved && saved.length > 0) {
+        setScheduledLocks(saved as Schedule[]);
+      }
+    });
+  }, []);
 
   const toggleSiteSelection = (siteId: number) => {
     setSelectedSites((prev) =>
@@ -258,7 +244,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   const addSchedule = () => {
     if (selectedSites.length > 0 && startTime && endTime) {
       const newSchedule: Schedule = {
-        id: Math.max(...scheduledLocks.map((s) => s.id)) + 1,
+        id: scheduledLocks.length > 0 ? Math.max(...scheduledLocks.map((s) => s.id)) + 1 : 1,
         name: scheduleName || `Schedule ${scheduledLocks.length + 1}`,
         sites: selectedSites
           .map((id) => sites.find((s) => s.id === id)?.url)
@@ -272,6 +258,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
       };
 
       setScheduledLocks([...scheduledLocks, newSchedule]);
+      putSchedule(newSchedule);
 
       // Reset form
       setSelectedSites([]);
@@ -285,12 +272,16 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
 
   const removeSchedule = (id: number) => {
     setScheduledLocks((prev) => prev.filter((s) => s.id !== id));
+    deleteScheduleRecord(id);
   };
 
   const toggleSchedule = (id: number) => {
-    setScheduledLocks((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, isActive: !s.isActive } : s))
-    );
+    setScheduledLocks((prev) => {
+      const updated = prev.map((s) => (s.id === id ? { ...s, isActive: !s.isActive } : s));
+      const toggled = updated.find(s => s.id === id);
+      if (toggled) putSchedule(toggled);
+      return updated;
+    });
   };
 
   const getRepeatText = (schedule: Schedule) => {
