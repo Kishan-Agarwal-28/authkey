@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FC } from "react";
 import { 
   Clock, 
@@ -22,7 +22,14 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { TimePickerInput } from "../shared/TimePickerInput";
 import { type Site } from "../../contexts/ExtensionContext";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import duration from "dayjs/plugin/duration";
+import isBetween from "dayjs/plugin/isBetween";
 
+dayjs.extend(customParseFormat);
+dayjs.extend(duration);
+dayjs.extend(isBetween);
 interface Schedule {
   id: number;
   name: string;
@@ -58,6 +65,74 @@ const REPEAT_OPTIONS = [
 interface ScheduleLockProps {
   sites: Site[];
 }
+
+const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
+  const [timeLeft, setTimeLeft] = useState("");
+  const [status, setStatus] = useState<"locking" | "waiting" | "">("");
+
+  useEffect(() => {
+    if (!schedule.isActive) {
+      setTimeLeft("");
+      setStatus("");
+      return;
+    }
+
+    const updateTimer = () => {
+      const now = dayjs();
+      let start = dayjs(schedule.startTime, "HH:mm");
+      let end = dayjs(schedule.endTime, "HH:mm");
+
+      // Handle overnight schedules 
+      if (end.isBefore(start)) {
+        if (now.isAfter(start) || now.isSame(start)) {
+          end = end.add(1, "day");
+        } else if (now.isBefore(end)) {
+          start = start.subtract(1, "day");
+        } else {
+          end = end.add(1, "day");
+        }
+      }
+
+      if (now.isBetween(start, end, null, "[)")) {
+        const diff = end.diff(now);
+        const dur = dayjs.duration(diff);
+        const h = Math.floor(dur.asHours());
+        const m = dur.minutes().toString().padStart(2, "0");
+        const s = dur.seconds().toString().padStart(2, "0");
+        setTimeLeft(`${h}h ${m}m ${s}s`);
+        setStatus("locking");
+      } else {
+        if (now.isAfter(end) || now.isSame(end)) {
+          start = start.add(1, "day");
+        }
+        const diff = start.diff(now);
+        const dur = dayjs.duration(diff);
+        const h = Math.floor(dur.asHours());
+        const m = dur.minutes().toString().padStart(2, "0");
+        const s = dur.seconds().toString().padStart(2, "0");
+        setTimeLeft(`${h}h ${m}m ${s}s`);
+        setStatus("waiting");
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [schedule]);
+
+  if (!schedule.isActive) return null;
+
+  return (
+    <span className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md border font-mono text-xs ${
+      status === "locking" 
+        ? "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400" 
+        : "bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900/30 text-amber-600 dark:text-amber-400"
+    }`}>
+      <Timer className="w-3.5 h-3.5" />
+      {status === "locking" ? `Ends in ${timeLeft}` : `Starts in ${timeLeft}`}
+    </span>
+  );
+};
 
 export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }) => {
   const [sites, setSites] = useState<Site[]>(initialSites);
@@ -505,6 +580,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                         <Repeat className="w-3.5 h-3.5 text-black dark:text-white" />
                         {getRepeatText(schedule)}
                       </span>
+                      {schedule.isActive && <ScheduleCountdown schedule={schedule} />}
                     </div>
                   </div>
                   <div className="flex items-center gap-3 ml-4">
