@@ -23,6 +23,7 @@ import { Switch } from "@/components/ui/switch";
 import { TimePickerInput } from "../shared/TimePickerInput";
 import { type Site, useSites } from "../../contexts/ExtensionContext";
 import { getAllSchedules, putSchedule, deleteScheduleRecord } from "../../storage/lockDb";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
@@ -189,6 +190,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   const [siteSearchQuery, setSiteSearchQuery] = useState("");
 
   const [scheduledLocks, setScheduledLocks] = useState<Schedule[]>([]);
+  const [deleteConfirm, setDeleteConfirm] = useState<{isOpen: boolean, scheduleId: number | null}>({isOpen: false, scheduleId: null});
   const { addSite } = useSites();
 
   useEffect(() => {
@@ -638,9 +640,9 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                     {schedule.canModify && (
                       <Button
                         variant="ghost"
-                        size="icon"
-                        onClick={() => removeSchedule(schedule.id)}
-                        className="text-gray-400 dark:text-gray-400 hover:text-red-600 hover:bg-red-50"
+                        size="sm"
+                        onClick={() => setDeleteConfirm({ isOpen: true, scheduleId: schedule.id })}
+                        className="p-1.5 h-auto text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -675,6 +677,40 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           )}
         </div>
       </Card>
+
+      <Dialog open={deleteConfirm.isOpen} onOpenChange={(open) => !open && setDeleteConfirm({ isOpen: false, scheduleId: null })}>
+        <DialogContent className="bg-white dark:bg-[#1A1A1A] border-gray-200 dark:border-[#2A2A2A] text-black dark:text-white max-w-md rounded-2xl shadow-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-red-600 dark:text-red-500 font-semibold">
+              <Trash2 className="w-5 h-5" />
+              Delete Schedule
+            </DialogTitle>
+            <DialogDescription className="text-gray-800 dark:text-gray-400 mt-2">
+              Are you sure you want to delete this schedule? This action cannot be undone and the scheduled locks will be permanently removed.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-6 flex gap-3 sm:justify-start">
+            <Button
+              variant="outline"
+              onClick={() => setDeleteConfirm({ isOpen: false, scheduleId: null })}
+              className="flex-1 border-gray-300 dark:border-[#333] bg-white hover:bg-gray-50 dark:bg-[#1F1F1F] dark:hover:bg-[#252525] text-black dark:text-white"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                if (deleteConfirm.scheduleId !== null) {
+                  removeSchedule(deleteConfirm.scheduleId);
+                  setDeleteConfirm({ isOpen: false, scheduleId: null });
+                }
+              }}
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white dark:text-white dark:bg-red-700 dark:hover:bg-red-800"
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
