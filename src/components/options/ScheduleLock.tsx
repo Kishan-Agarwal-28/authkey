@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { TimePickerInput } from "../shared/TimePickerInput";
-import { type Site } from "../../contexts/ExtensionContext";
+import { type Site, useSites } from "../../contexts/ExtensionContext";
 import { getAllSchedules, putSchedule, deleteScheduleRecord } from "../../storage/lockDb";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -189,6 +189,11 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   const [siteSearchQuery, setSiteSearchQuery] = useState("");
 
   const [scheduledLocks, setScheduledLocks] = useState<Schedule[]>([]);
+  const { addSite } = useSites();
+
+  useEffect(() => {
+    setSites(initialSites);
+  }, [initialSites]);
 
   useEffect(() => {
     getAllSchedules().then((saved) => {
@@ -208,17 +213,26 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
 
   const handleAddSite = () => {
     if (newSiteUrl.trim()) {
-      const cleanUrl = newSiteUrl.trim().toLowerCase();
+      const rawUrl = newSiteUrl.trim().toLowerCase();
+      const host = rawUrl.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0];
       // Check if URL already exists
-      const existing = sites.find((s) => s.url.toLowerCase() === cleanUrl);
+      const existing = sites.find((s) => s.url.toLowerCase() === host);
       if (existing) {
         if (!selectedSites.includes(existing.id)) {
           setSelectedSites((prev) => [...prev, existing.id]);
         }
       } else {
+        addSite(rawUrl).catch(console.error);
+
+        let newId = 0;
+        for (let i = 0; i < host.length; i++) {
+          newId += host.charCodeAt(i);
+        }
+        newId = newId || (sites.length + 1);
+
         const newSite: Site = {
-          id: Math.max(0, ...sites.map((s) => s.id)) + 1,
-          url: cleanUrl,
+          id: newId,
+          url: host,
           icon: "🌐",
           isLocked: true,
           category: "Custom",
