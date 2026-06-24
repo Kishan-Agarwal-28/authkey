@@ -14,7 +14,8 @@ import {
   Repeat, 
   Calendar, 
   Trash2, 
-  Lock 
+  Lock,
+  Pencil
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -650,19 +651,32 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                   </div>
                 </div>
 
-                <div className="space-y-2 mt-4 pt-4 border-t border-gray-100 dark:border-[#2A2A2A]">
-                  <div className="text-xs font-medium text-gray-400 dark:text-gray-400 uppercase tracking-wider">Locked Sites:</div>
-                  <div className="flex flex-wrap gap-2">
-                    {schedule.sites.map((site, index) => (
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className="text-xs border-gray-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1A1A1A] text-gray-700 dark:text-gray-300 py-1"
-                      >
-                        {site}
-                      </Badge>
-                    ))}
+                <div className="flex justify-between items-end mt-4 pt-4 border-t border-gray-100 dark:border-[#2A2A2A]">
+                  <div className="space-y-2">
+                    <div className="text-xs font-medium text-gray-400 dark:text-gray-400 uppercase tracking-wider">Locked Sites:</div>
+                    <div className="flex flex-wrap gap-2">
+                      {schedule.sites.map((site, index) => (
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className="text-xs border-gray-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1A1A1A] text-gray-700 dark:text-gray-300 py-1"
+                        >
+                          {site}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-shrink-0 bg-white dark:bg-[#1A1A1A] text-gray-700 dark:text-gray-300 border-gray-200 dark:border-[#2A2A2A] hover:bg-gray-100 dark:hover:bg-[#252525]"
+                    onClick={() => {
+                      console.log('Edit clicked for', schedule.id);
+                    }}
+                  >
+                    <Pencil className="w-4 h-4 mr-2" />
+                    Edit
+                  </Button>
                 </div>
               </div>
             ))
