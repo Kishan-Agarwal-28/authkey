@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { FC } from "react";
 import { 
   Clock, 
@@ -189,6 +189,8 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   const [newSiteUrl, setNewSiteUrl] = useState("");
   const [showSites, setShowSites] = useState(true);
   const [siteSearchQuery, setSiteSearchQuery] = useState("");
+  const [editingScheduleId, setEditingScheduleId] = useState<number | null>(null);
+  const topRef = useRef<HTMLDivElement>(null);
 
   const [scheduledLocks, setScheduledLocks] = useState<Schedule[]>([]);
   const [deleteConfirm, setDeleteConfirm] = useState<{isOpen: boolean, scheduleId: number | null}>({isOpen: false, scheduleId: null});
@@ -258,24 +260,61 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
     );
   };
 
+  const handleEditSchedule = (schedule: Schedule) => {
+    setEditingScheduleId(schedule.id);
+    setScheduleName(schedule.name);
+    
+    const siteIds = schedule.sites
+      .map((url) => sites.find((s) => s.url === url)?.id)
+      .filter((id): id is number => id !== undefined);
+    setSelectedSites(siteIds);
+    
+    setStartTime(schedule.startTime);
+    setEndTime(schedule.endTime);
+    setRepeatOption(schedule.repeat);
+    setCustomDays(schedule.customDays);
+    
+    setTimeout(() => {
+      topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
+
   const addSchedule = () => {
     if (selectedSites.length > 0 && startTime && endTime) {
-      const newSchedule: Schedule = {
-        id: scheduledLocks.length > 0 ? Math.max(...scheduledLocks.map((s) => s.id)) + 1 : 1,
-        name: scheduleName || `Schedule ${scheduledLocks.length + 1}`,
-        sites: selectedSites
-          .map((id) => sites.find((s) => s.id === id)?.url)
-          .filter(Boolean) as string[],
-        startTime,
-        endTime,
-        repeat: repeatOption,
-        customDays: repeatOption === "custom" ? customDays : [],
-        isActive: true,
-        canModify: true,
-      };
-
-      setScheduledLocks([...scheduledLocks, newSchedule]);
-      putSchedule(newSchedule);
+      if (editingScheduleId !== null) {
+        const updatedSchedule: Schedule = {
+          ...scheduledLocks.find(s => s.id === editingScheduleId)!,
+          name: scheduleName || `Schedule ${editingScheduleId}`,
+          sites: selectedSites
+            .map((id) => sites.find((s) => s.id === id)?.url)
+            .filter(Boolean) as string[],
+          startTime,
+          endTime,
+          repeat: repeatOption,
+          customDays: repeatOption === "custom" ? customDays : [],
+        };
+        
+        setScheduledLocks(prev => prev.map(s => s.id === editingScheduleId ? updatedSchedule : s));
+        putSchedule(updatedSchedule);
+        setEditingScheduleId(null);
+      } else {
+        const newSchedule: Schedule = {
+          id: scheduledLocks.length > 0 ? Math.max(...scheduledLocks.map((s) => s.id)) + 1 : 1,
+          name: scheduleName || `Schedule ${scheduledLocks.length + 1}`,
+          sites: selectedSites
+            .map((id) => sites.find((s) => s.id === id)?.url)
+            .filter(Boolean) as string[],
+          startTime,
+          endTime,
+          repeat: repeatOption,
+          customDays: repeatOption === "custom" ? customDays : [],
+          isActive: true,
+          canModify: true,
+        };
+  
+        setScheduledLocks([...scheduledLocks, newSchedule]);
+        putSchedule(newSchedule);
+      }
 
       // Reset form
       setSelectedSites([]);
@@ -329,13 +368,13 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" ref={topRef}>
       {/* Create New Schedule */}
       <Card className="p-6 bg-white dark:bg-[#1A1A1A] border border-gray-200 dark:border-[#2A2A2A] rounded-2xl shadow-sm relative overflow-hidden">
         <Clock className="absolute -right-12 -top-20 w-60 h-60 text-gray-400 dark:text-gray-400 opacity-[0.18] pointer-events-none z-0" />
         <h3 className="text-lg font-semibold text-black dark:text-white mb-6 flex items-center gap-2 relative z-10">
           <Timer className="w-5 h-5 text-black dark:text-white" />
-          Create Schedule Lock
+          {editingScheduleId !== null ? "Edit Schedule Lock" : "Create Schedule Lock"}
         </h3>
 
         {/* Schedule Name */}
@@ -553,14 +592,33 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           )}
         </div>
 
-        <Button
-          onClick={addSchedule}
-          disabled={!isFormValid()}
-          className="w-full bg-black dark:bg-white hover:bg-gray-900 dark:hover:bg-gray-100 text-white dark:text-black rounded-xl py-6 font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-        >
-          <Clock className="w-5 h-5 mr-2" />
-          Create Schedule Lock
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            onClick={addSchedule}
+            disabled={!isFormValid()}
+            className="flex-1 bg-black dark:bg-white hover:bg-gray-900 dark:hover:bg-gray-100 text-white dark:text-black rounded-xl py-6 font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          >
+            <Clock className="w-5 h-5 mr-2" />
+            {editingScheduleId !== null ? "Save Schedule" : "Create Schedule Lock"}
+          </Button>
+          {editingScheduleId !== null && (
+            <Button
+              onClick={() => {
+                setEditingScheduleId(null);
+                setSelectedSites([]);
+                setStartTime("");
+                setEndTime("");
+                setRepeatOption("never");
+                setCustomDays([]);
+                setScheduleName("");
+              }}
+              variant="outline"
+              className="flex-shrink-0 border-gray-300 dark:border-[#333] hover:bg-gray-50 dark:hover:bg-[#252525] text-black dark:text-white rounded-xl py-6 px-6 font-semibold transition-all"
+            >
+              Cancel
+            </Button>
+          )}
+        </div>
         {!isFormValid() && (
           <p className="text-xs text-gray-400 dark:text-gray-400 text-center mt-3 font-medium">
             {!selectedSites.length && !startTime && !endTime
@@ -670,9 +728,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                     variant="outline"
                     size="sm"
                     className="flex-shrink-0 bg-white dark:bg-[#1A1A1A] text-gray-700 dark:text-gray-300 border-gray-200 dark:border-[#2A2A2A] hover:bg-gray-100 dark:hover:bg-[#252525]"
-                    onClick={() => {
-                      console.log('Edit clicked for', schedule.id);
-                    }}
+                    onClick={() => handleEditSchedule(schedule)}
                   >
                     <Pencil className="w-4 h-4 mr-2" />
                     Edit
