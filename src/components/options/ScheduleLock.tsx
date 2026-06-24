@@ -701,7 +701,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
                         variant="ghost"
                         size="sm"
                         onClick={() => setDeleteConfirm({ isOpen: true, scheduleId: schedule.id })}
-                        className="p-1.5 h-auto text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                        className="p-1.5 h-auto text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
