@@ -227,7 +227,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           setSelectedSites((prev) => [...prev, existing.id]);
         }
       } else {
-        await addSite(rawUrl);
+        await addSite(host);
 
         setSites((currentSites) => {
           const newSite = currentSites.find((s) => s.url.toLowerCase() === host);
