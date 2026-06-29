@@ -280,7 +280,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   };
 
   const addSchedule = () => {
-    if (selectedSites.length > 0 && startTime && endTime) {
+    if (isFormValid()) {
       if (editingScheduleId !== null) {
         const updatedSchedule: Schedule = {
           ...scheduledLocks.find(s => s.id === editingScheduleId)!,
