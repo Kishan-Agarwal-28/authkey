@@ -216,7 +216,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
     );
   };
 
-  const handleAddSite = () => {
+  const handleAddSite = async () => {
     if (newSiteUrl.trim()) {
       const rawUrl = newSiteUrl.trim().toLowerCase();
       const host = rawUrl.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0];
@@ -227,25 +227,15 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           setSelectedSites((prev) => [...prev, existing.id]);
         }
       } else {
-        addSite(rawUrl).catch(console.error);
+        await addSite(rawUrl);
 
-        let newId = 0;
-        for (let i = 0; i < host.length; i++) {
-          newId += host.charCodeAt(i);
-        }
-        newId = newId || (sites.length + 1);
-
-        const newSite: Site = {
-          id: newId,
-          url: host,
-          icon: "🌐",
-          isLocked: true,
-          category: "Custom",
-          unlockCount: 0,
-          avgLockDuration: 0,
-        };
-        setSites((prev) => [...prev, newSite]);
-        setSelectedSites((prev) => [...prev, newSite.id]);
+        setSites((currentSites) => {
+          const newSite = currentSites.find((s) => s.url.toLowerCase() === host);
+          if (newSite && !selectedSites.includes(newSite.id)) {
+            setSelectedSites((prev) => [...prev, newSite.id]);
+          }
+          return currentSites;
+        });
       }
       setNewSiteUrl("");
       setShowAddSite(false);
@@ -279,7 +269,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
     }, 50);
   };
 
-  const addSchedule = () => {
+  const addSchedule = async () => {
     if (isFormValid()) {
       if (editingScheduleId !== null) {
         const existingSchedule = scheduledLocks.find(s => s.id === editingScheduleId);
@@ -304,8 +294,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
         putSchedule(updatedSchedule);
         setEditingScheduleId(null);
       } else {
-        const newSchedule: Schedule = {
-          id: scheduledLocks.length > 0 ? Math.max(...scheduledLocks.map((s) => s.id)) + 1 : 1,
+        const newScheduleData: Omit<Schedule, 'id'> & { id?: number } = {
           name: scheduleName || `Schedule ${scheduledLocks.length + 1}`,
           sites: selectedSites
             .map((id) => sites.find((s) => s.id === id)?.url)
@@ -318,8 +307,8 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           canModify: true,
         };
   
-        setScheduledLocks([...scheduledLocks, newSchedule]);
-        putSchedule(newSchedule);
+        const newId = await putSchedule(newScheduleData as Schedule);
+        setScheduledLocks([...scheduledLocks, { ...newScheduleData, id: newId } as Schedule]);
       }
 
       // Reset form
