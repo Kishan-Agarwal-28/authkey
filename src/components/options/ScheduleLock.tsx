@@ -282,8 +282,14 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
   const addSchedule = () => {
     if (isFormValid()) {
       if (editingScheduleId !== null) {
+        const existingSchedule = scheduledLocks.find(s => s.id === editingScheduleId);
+        if (!existingSchedule) {
+          setEditingScheduleId(null);
+          return;
+        }
+
         const updatedSchedule: Schedule = {
-          ...scheduledLocks.find(s => s.id === editingScheduleId)!,
+          ...existingSchedule,
           name: scheduleName || `Schedule ${editingScheduleId}`,
           sites: selectedSites
             .map((id) => sites.find((s) => s.id === id)?.url)
