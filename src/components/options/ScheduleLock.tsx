@@ -43,6 +43,7 @@ interface Schedule {
   customDays: string[];
   isActive: boolean;
   canModify: boolean;
+  triggerDate?: string;
 }
 
 // Day options for scheduling
@@ -85,7 +86,12 @@ const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
       const daysMap = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
       const isValidDay = (d: dayjs.Dayjs) => {
-        if (schedule.repeat === "daily" || schedule.repeat === "never") return true;
+        if (schedule.repeat === "never") {
+        
+          if (!schedule.triggerDate) return false;
+          return d.isSame(dayjs(schedule.triggerDate), 'day');
+        }
+        if (schedule.repeat === "daily") return true;
         const dayIndex = d.day();
         const dayName = daysMap[dayIndex];
         if (schedule.repeat === "weekdays") return dayIndex >= 1 && dayIndex <= 5;
@@ -95,8 +101,7 @@ const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
       };
 
       let currentlyLockingEnd = null;
-
-      // Check yesterday's window 
+ 
       const yesterday = now.subtract(1, "day");
       if (isValidDay(yesterday)) {
         const startY = dayjs(`${yesterday.format("YYYY-MM-DD")} ${schedule.startTime}`, "YYYY-MM-DD HH:mm");
@@ -135,8 +140,14 @@ const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
       if (currentlyLockingEnd) {
         setStatus("locking");
         setTimeLeft(formatDiff(currentlyLockingEnd.diff(now)));
+
+        
+        if (schedule.repeat === "never" && now.isAfter(currentlyLockingEnd)) {
+          const deactivated = { ...schedule, isActive: false };
+          putSchedule(deactivated);
+        }
       } else {
-        // Find next start time
+     
         let nextStart = null;
         for (let i = 0; i <= 7; i++) {
           const checkDay = now.add(i, "day");
@@ -153,6 +164,11 @@ const ScheduleCountdown: FC<{ schedule: Schedule }> = ({ schedule }) => {
           setStatus("waiting");
           setTimeLeft(formatDiff(nextStart.diff(now)));
         } else {
+         
+          if (schedule.repeat === "never" && schedule.isActive) {
+            const deactivated = { ...schedule, isActive: false };
+            putSchedule(deactivated);
+          }
           setStatus("");
         }
       }
@@ -288,6 +304,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           endTime,
           repeat: repeatOption,
           customDays: repeatOption === "custom" ? customDays : [],
+          triggerDate: repeatOption === "never" ? dayjs().format("YYYY-MM-DD") : undefined,
         };
         
         setScheduledLocks(prev => prev.map(s => s.id === editingScheduleId ? updatedSchedule : s));
@@ -303,6 +320,7 @@ export const ScheduleLock: FC<ScheduleLockProps> = ({ sites: initialSites = [] }
           endTime,
           repeat: repeatOption,
           customDays: repeatOption === "custom" ? customDays : [],
+          triggerDate: repeatOption === "never" ? dayjs().format("YYYY-MM-DD") : undefined,
           isActive: true,
           canModify: true,
         };

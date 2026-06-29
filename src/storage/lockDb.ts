@@ -20,6 +20,7 @@ export type ScheduleRecord = {
   customDays: string[];
   isActive: boolean;
   canModify: boolean;
+  triggerDate?: string; // ISO date string for one-time ("never") schedules
 };
 
 class AuthKeyDB extends Dexie {
